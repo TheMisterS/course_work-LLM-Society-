@@ -16,7 +16,7 @@ class AgentState(TypedDict):
     long_mem: List[str]
     short_mem: List[Msg]
 
-class SocietyState(TypedDict):
+class GraphState(TypedDict):
     messages: List[Msg]
     agents: Dict[str, AgentState]
     profiles: Dict[str, AgentProfile]
