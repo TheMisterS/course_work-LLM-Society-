@@ -1,13 +1,14 @@
 from typing import TypedDict, List, Dict, Literal, Optional
+from langchain_community.chat_models import ChatOllama
+
 from langgraph.graph import add_messages
+from operator import add
+from typing import Annotated
 
 class Msg(TypedDict):
     role: Literal["system","user","assistant","agent","supervisor"]
     name: Optional[str]
     content: str
-class AgentProfile(TypedDict):
-    role_desc: str
-    traits: Dict[str, str] 
 
 class AgentState(TypedDict):
     name: str
@@ -15,18 +16,16 @@ class AgentState(TypedDict):
     traits: Dict[str, str]
     long_mem: List[str]
     short_mem: List[Msg]
+    agent_agenda: Dict[str, str]
 
 class GraphState(TypedDict):
-    messages: List[Msg]
+    messages: Annotated[List[Msg], add]
     agents: Dict[str, AgentState]
-    profiles: Dict[str, AgentProfile]
     round: int
     phase: Literal["debate","vote","interview","done"]
-    supervisor_notes: List[str]
+    #Reducer used here to accumulate notes
+    supervisor_notes: Annotated[list[str], add]
     agenda: Dict[str, str]
     votes: Dict[str, str]
-
-reducers = {
-    "messages": add_messages,
-    "supervisor_notes": list.__add__,
-}
+    models: Dict[str, ChatOllama]
+    next_speaker: Optional[str]

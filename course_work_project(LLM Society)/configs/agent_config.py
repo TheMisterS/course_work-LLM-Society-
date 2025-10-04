@@ -1,20 +1,20 @@
 from typing import Dict
-from graph.utils.state import AgentProfile
+from graph.utils.state import AgentState
 
-AGENT_PROFILES: Dict[str, AgentProfile] = {
-    "agent_1": {
+AGENT_PROFILES = {
+    "Bob": {
         "role_desc": "A curious researcher",
         "traits": {
             "curiosity": "high",
             "patience": "medium",
         },
     },
-    "agent_2": {
+    "Sarah": {
         "role_desc": "A strict supervisor",
         "traits": {
             "strictness": "high",
             "empathy": "low",
         },
     },
-    # Add more agents as needed
+    # Add more agent configurations as needed
 }

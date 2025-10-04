@@ -1,21 +1,28 @@
 
-from graph.utils.state import GraphState
+from typing import Any, Dict
+from graph.utils.state import GraphState, Msg
+from graph.utils.prompts import build_system_prompt, build_user_prompt
+from configs.simulation_config import MODEL_USED_FOR_AGENTS, DEBATE_ROUND_COUNT
+from graph.chain_factory import create_agent_chain
+
+import logging
+logger = logging.getLogger(__name__)
+
 class Nodes:
 
-    def __init__(self, state: GraphState):
-        self.state = state
 
+    def supervisor(self, state: GraphState):
+        logger.debug("***IN SUPERVISOR NODE***")
 
-    def supervisor(state: GraphState):
         notes = state.get("supervisor_notes", [])
 
         speakers_length = len(state["agents"])
 
         #retrieve next speaker (might need to randomize each phase)
         speaker = list(state["agents"].keys())[state["round"] % speakers_length]
-        
-        notes += [f"Supervisor selects: {speaker} | phase={state['phase']} | round={state['round']}"]
+        logger.debug(f"Supervisor selected next speaker: {speaker}")
 
+        notes += [f"Supervisor selects: {speaker} | phase={state['phase']} | round={state['round']}"]
         #(WIP) State shifting skeleton
 
         # if state["round"] == 5 and state["phase"] == "debate":
@@ -30,16 +37,61 @@ class Nodes:
 
         return {"supervisor_notes": notes, "next_speaker": speaker}
 
-    def agent_speak(state: GraphState, *, next_speaker: str):
-        ...
-    
-    def remember(state: GraphState, *, next_speaker: str) -> Dict[str, Any]:
-        ...
+
+    def agent_speak(self, state: GraphState):
+        logger.debug("***IN AGENT SPEAK NODE***")
+         # Retrieve the agent state
+
+        next_speaker = state.get("next_speaker", None)
+        if not next_speaker:
+            logger.error("No next speaker defined in state.")
+
+        agent = state["agents"][next_speaker]
+
+        current_sys_prompt = build_system_prompt(agent)
+        current_user_prompt = build_user_prompt(agent)
+        model = state["models"][MODEL_USED_FOR_AGENTS]
+
+        chain = create_agent_chain(model)
+        response = chain.invoke({
+            "system_message": current_sys_prompt,
+            "user_message": current_user_prompt
+        })
+        print(response)
+
+        message = Msg(
+            role="agent",
+            name=next_speaker,
+            content=response
+        )
+
+        return {"messages": [message], "next_speaker": next_speaker}
+        
+
+    def update_memory(self, state: GraphState):
+        logger.debug("***IN UPDATE MEMORY NODE***")
+         # Update the agent's memories
+        last_message = state["messages"][-1]
+
+        # not good practise to update state directly, but left as is for PoC
+
+        for agent in state["agents"].values():
+            if len(agent["short_mem"]) > 5: # limit short term memory (WIP, adjust via constant later)
+                agent["short_mem"].pop(0)
+            agent["short_mem"].append(last_message)
+
+        return {}
 
 
     #increments round and goes back to supervisor
-    def tick(state: GraphState) -> Dict[str, Any]:
-        #return {"round": state["round"] + 1}
+    def tick(self, state: GraphState) -> Dict[str, Any]:
+        logger.debug("***IN TICK NODE***")
+        new_round = state["round"] + 1
+
+        if new_round >= DEBATE_ROUND_COUNT and state["phase"] == "debate":
+            return {"round": new_round, "phase": "END"}
+
+        return {"round": state["round"] + 1}
         ...
 
     #Add conditional edge after this node
@@ -51,9 +103,11 @@ class Nodes:
     #     return "agent_speak"
 
     #Route after agent interaction, either end or to tick to increment round
-    def router(state: GraphState) -> str:
+    def router(self, state: GraphState) -> str:
+        logger.debug("***IN ROUTER NODE***")
         ...
 
     #WIP for later
-    def vote(state: GraphState) -> Dict[str, Any]:
+    def vote(self, state: GraphState) -> Dict[str, Any]:
+        logger.debug("***IN VOTE NODE***")
         ...

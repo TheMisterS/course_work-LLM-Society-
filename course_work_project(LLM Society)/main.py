@@ -1,5 +1,45 @@
-from graph.graph_builder import build_graph
+import logging
+from logger import setup_logger
+
+# TEMP/TEST imports
+from graph.graph_factory import build_graph, initialize_state
+from graph.utils.prompts import build_system_prompt, build_user_prompt
+
+def write_conversation_to_file(result, filename="conversations/conversation.txt"):
+    with open(filename, "w", encoding="utf-8") as f:
+        for message in result["messages"]:
+            f.write(f"[{message['name']}]: {message['content']}\n")
+            f.write("-" * 80 + "\n")  # Separator between messages
+
 
 if __name__ == "__main__":
+    setup_logger()
+    logger = logging.getLogger(__name__)
+    logger.info("Starting the LLM Society application")
+
+    state = initialize_state()
     graph = build_graph()
+    result = graph.invoke(state)
     
+    write_conversation_to_file(result)
+    print(result)
+    
+
+
+
+    # TESTING
+
+    # Test state initialization
+    # state = initialize_state()
+    # print(state)
+
+    # Test prompt building
+    # state = initialize_state()
+    # for agent_name, agent_state in state["agents"].items():
+    #     sys_prompt = build_system_prompt(agent_state)
+    #     user_prompt = build_user_prompt(agent_state)
+    #     print(f"System Prompt for {agent_name}:\n{sys_prompt}\n")
+    #     print("----------------------------------------------------\n")
+    #     print(f"User Prompt for {agent_name}:\n{user_prompt}\n")
+    #     print("----------------------------------------------------\n")
+

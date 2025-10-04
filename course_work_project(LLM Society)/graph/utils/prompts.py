@@ -16,20 +16,23 @@ def build_system_prompt(agent: AgentState) -> str:
     return prompt
     
 
-def build_user_prompt(agent: AgentState, task: str, agenda: dict, transcript: list) -> str:
-     #(WIP) mightn need to verif if all transcript should be passed
-     recent_msgs = transcript[-6:] if len(transcript) > 6 else transcript
+def build_user_prompt(agent: AgentState) -> str:
+    recent_msgs = agent['short_mem'][-6:] if len(agent['short_mem']) > 6 else agent['short_mem']
+    bullet_list = "\n".join([f"• {msg}" for msg in reversed(recent_msgs)])
 
-     bullet_list = "\n".join([f"• {msg}" for msg in reversed(recent_msgs)])
+    prompt = f"""Topic: {agent['agent_agenda']['debate_topic']}
 
-     prompt = f"""Topic: {agenda['debate_topic']}
- 
-     Recent transcript (most recent first):
-     {bullet_list}
- 
-     Your task for this turn:
-     - Respond as {agent['name']} given your role.
-     - If you change or qualify your stance, state why briefly.
-     - Optional: prefix crisp claims with "Fact:".
- 
-     Now respond."""
+    Recent transcript (most recent first):
+    {bullet_list}
+
+    Your task for this turn:
+    - Respond as {agent['name']} given your role.
+    - If you change or qualify your stance, state why briefly.
+    - Optional: prefix crisp claims with "Fact:".
+
+    Now respond."""
+    return prompt
+
+def build_full_prompt(agent: AgentState) -> str:
+    # Not sure if needed, more readable without atm
+    ...
