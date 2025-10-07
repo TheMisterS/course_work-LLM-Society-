@@ -14,7 +14,7 @@ class Nodes:
     def supervisor(self, state: GraphState):
         logger.debug("***IN SUPERVISOR NODE***")
 
-        notes = state.get("supervisor_notes", [])
+        supervisor_notes = [None]
 
         speakers_length = len(state["agents"])
 
@@ -22,7 +22,7 @@ class Nodes:
         speaker = list(state["agents"].keys())[state["round"] % speakers_length]
         logger.debug(f"Supervisor selected next speaker: {speaker}")
 
-        notes += [f"Supervisor selects: {speaker} | phase={state['phase']} | round={state['round']}"]
+        supervisor_notes = supervisor_notes +[f"Supervisor selects: {speaker} | phase={state['phase']} | round={state['round']}"]
         #(WIP) State shifting skeleton
 
         # if state["round"] == 5 and state["phase"] == "debate":
@@ -35,7 +35,7 @@ class Nodes:
         #     phase = state["phase"]
         #return {"supervisor_notes": notes, "next_speaker": speaker, "phase": phase}
 
-        return {"supervisor_notes": notes, "next_speaker": speaker}
+        return {"supervisor_notes": supervisor_notes, "next_speaker": speaker}
 
 
     def agent_speak(self, state: GraphState):

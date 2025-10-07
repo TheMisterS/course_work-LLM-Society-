@@ -1,320 +1,310 @@
-2025-10-04 17:59:00,513 [INFO] __main__: Starting the LLM Society application
-2025-10-04 22:28:56,168 [INFO] __main__: Starting the LLM Society application
-2025-10-04 22:30:26,349 [INFO] __main__: Starting the LLM Society application
-2025-10-04 22:35:26,045 [INFO] __main__: Starting the LLM Society application
-2025-10-04 22:38:12,229 [INFO] __main__: Starting the LLM Society application
-2025-10-04 22:45:16,692 [INFO] __main__: Starting the LLM Society application
-2025-10-04 22:45:39,701 [INFO] __main__: Starting the LLM Society application
-2025-10-04 22:46:09,446 [INFO] __main__: Starting the LLM Society application
-2025-10-04 23:04:55,302 [INFO] __main__: Starting the LLM Society application
-2025-10-04 23:05:32,957 [INFO] __main__: Starting the LLM Society application
-2025-10-04 23:06:32,416 [INFO] __main__: Starting the LLM Society application
-2025-10-04 23:06:32,416 [INFO] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
-2025-10-05 01:29:36,551 [INFO] __main__: Starting the LLM Society application
-2025-10-05 01:32:03,590 [INFO] __main__: Starting the LLM Society application
-2025-10-05 01:32:03,591 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
-2025-10-05 01:32:03,653 [DEBUG] graph.graph_factory: Building the state graph.
-2025-10-05 01:33:29,435 [INFO] __main__: Starting the LLM Society application
-2025-10-05 01:33:29,436 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
-2025-10-05 01:33:29,443 [DEBUG] graph.graph_factory: Building the state graph.
-2025-10-05 01:33:44,551 [INFO] __main__: Starting the LLM Society application
-2025-10-05 01:33:44,551 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
-2025-10-05 01:33:44,558 [DEBUG] graph.graph_factory: Building the state graph.
-2025-10-05 01:36:18,859 [INFO] __main__: Starting the LLM Society application
-2025-10-05 01:36:18,860 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
-2025-10-05 01:36:18,865 [DEBUG] graph.graph_factory: Building the state graph.
-2025-10-05 01:36:30,245 [INFO] __main__: Starting the LLM Society application
-2025-10-05 01:36:30,245 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
-2025-10-05 01:36:30,252 [DEBUG] graph.graph_factory: Building the state graph.
-2025-10-05 01:36:44,745 [INFO] __main__: Starting the LLM Society application
-2025-10-05 01:36:44,746 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
-2025-10-05 01:36:44,751 [DEBUG] graph.graph_factory: Building the state graph.
-2025-10-05 01:38:05,277 [INFO] __main__: Starting the LLM Society application
-2025-10-05 01:38:05,278 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
-2025-10-05 01:38:05,283 [DEBUG] graph.graph_factory: Building the state graph.
-2025-10-05 01:38:05,299 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 01:43:57,875 [INFO] __main__: Starting the LLM Society application
-2025-10-05 01:43:57,876 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
-2025-10-05 01:43:57,881 [DEBUG] graph.graph_factory: Building the state graph.
-2025-10-05 01:43:57,897 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 01:43:57,897 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
-2025-10-05 01:43:57,898 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 01:43:57,899 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 01:45:01,217 [INFO] __main__: Starting the LLM Society application
-2025-10-05 01:45:01,218 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
-2025-10-05 01:45:01,224 [DEBUG] graph.graph_factory: Building the state graph.
-2025-10-05 01:45:01,241 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 01:45:01,241 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
-2025-10-05 01:45:01,243 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 01:45:01,243 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 01:45:01,308 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
-2025-10-05 01:45:31,519 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
-2025-10-05 01:47:52,207 [INFO] __main__: Starting the LLM Society application
-2025-10-05 01:47:52,208 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
-2025-10-05 01:47:52,215 [DEBUG] graph.graph_factory: Building the state graph.
-2025-10-05 01:47:52,232 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 01:47:52,233 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
-2025-10-05 01:47:52,234 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 01:47:52,234 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 01:47:52,250 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
-2025-10-05 01:47:54,570 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
-2025-10-05 01:48:43,219 [INFO] __main__: Starting the LLM Society application
-2025-10-05 01:48:43,221 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
-2025-10-05 01:48:43,227 [DEBUG] graph.graph_factory: Building the state graph.
-2025-10-05 01:48:43,243 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 01:48:43,244 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
-2025-10-05 01:48:43,246 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 01:48:43,246 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 01:48:43,263 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
-2025-10-05 01:48:45,562 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
-2025-10-05 01:48:47,200 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
-2025-10-05 01:51:00,261 [INFO] __main__: Starting the LLM Society application
-2025-10-05 01:51:00,262 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
-2025-10-05 01:51:00,267 [DEBUG] graph.graph_factory: Building the state graph.
-2025-10-05 01:51:00,282 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 01:51:00,283 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
-2025-10-05 01:51:00,284 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 01:51:00,284 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 01:51:00,300 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
-2025-10-05 01:51:02,704 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
-2025-10-05 01:51:04,541 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
-2025-10-05 01:51:04,542 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
-2025-10-05 01:51:04,542 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 01:51:04,543 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Sarah
-2025-10-05 01:51:04,544 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 01:51:04,544 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 01:52:13,152 [INFO] __main__: Starting the LLM Society application
-2025-10-05 01:52:13,152 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
-2025-10-05 01:52:13,158 [DEBUG] graph.graph_factory: Building the state graph.
-2025-10-05 01:52:13,174 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 01:52:13,175 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
-2025-10-05 01:52:13,176 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 01:52:13,176 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 01:52:13,192 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
-2025-10-05 01:52:15,475 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
-2025-10-05 01:52:17,297 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
-2025-10-05 01:52:17,298 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
-2025-10-05 01:52:17,299 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 01:52:17,299 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Sarah
-2025-10-05 01:52:17,300 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 01:52:17,300 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 01:55:00,593 [INFO] __main__: Starting the LLM Society application
-2025-10-05 01:55:00,593 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
-2025-10-05 01:55:00,599 [DEBUG] graph.graph_factory: Building the state graph.
-2025-10-05 01:55:00,615 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 01:55:00,615 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
-2025-10-05 01:55:00,616 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 01:55:00,617 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 01:55:00,631 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
-2025-10-05 01:55:02,969 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
-2025-10-05 01:55:04,932 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
-2025-10-05 01:55:04,933 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
-2025-10-05 01:55:04,934 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 01:55:04,934 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Sarah
-2025-10-05 01:55:04,935 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 01:55:04,935 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 01:56:24,219 [INFO] __main__: Starting the LLM Society application
-2025-10-05 01:56:24,219 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
-2025-10-05 01:56:24,225 [DEBUG] graph.graph_factory: Building the state graph.
-2025-10-05 01:56:24,241 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 01:56:24,241 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
-2025-10-05 01:56:24,242 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 01:56:24,242 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 01:56:45,628 [INFO] __main__: Starting the LLM Society application
-2025-10-05 01:56:45,628 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
-2025-10-05 01:56:45,634 [DEBUG] graph.graph_factory: Building the state graph.
-2025-10-05 01:56:45,649 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 01:56:45,650 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
-2025-10-05 01:56:45,652 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 01:56:45,652 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 01:58:03,375 [INFO] __main__: Starting the LLM Society application
-2025-10-05 01:58:03,375 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
-2025-10-05 01:59:47,137 [INFO] __main__: Starting the LLM Society application
-2025-10-05 01:59:47,137 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
-2025-10-05 02:00:07,531 [INFO] __main__: Starting the LLM Society application
-2025-10-05 02:00:07,532 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
-2025-10-05 02:00:07,537 [DEBUG] graph.graph_factory: Building the state graph.
-2025-10-05 02:00:07,553 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 02:00:07,553 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
-2025-10-05 02:00:07,554 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 02:00:07,555 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 02:00:07,570 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
-2025-10-05 02:00:14,018 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
-2025-10-05 02:00:16,096 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
-2025-10-05 02:00:16,097 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
-2025-10-05 02:00:16,098 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 02:00:16,098 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Sarah
-2025-10-05 02:00:16,099 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 02:00:16,099 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 02:01:04,807 [INFO] __main__: Starting the LLM Society application
-2025-10-05 02:01:04,808 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
-2025-10-05 02:01:04,814 [DEBUG] graph.graph_factory: Building the state graph.
-2025-10-05 02:01:04,832 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 02:01:04,832 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
-2025-10-05 02:01:04,833 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 02:01:04,834 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 02:01:04,850 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
-2025-10-05 02:01:07,224 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
-2025-10-05 02:01:09,040 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
-2025-10-05 02:01:09,040 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
-2025-10-05 02:01:09,041 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 02:01:09,041 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Sarah
-2025-10-05 02:01:09,042 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 02:01:09,043 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 02:03:25,864 [INFO] __main__: Starting the LLM Society application
-2025-10-05 02:03:25,864 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
-2025-10-05 02:03:25,870 [DEBUG] graph.graph_factory: Building the state graph.
-2025-10-05 02:03:25,884 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 02:03:25,886 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
-2025-10-05 02:03:25,887 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 02:03:25,888 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 02:03:34,446 [INFO] __main__: Starting the LLM Society application
-2025-10-05 02:03:34,446 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
-2025-10-05 02:03:34,452 [DEBUG] graph.graph_factory: Building the state graph.
-2025-10-05 02:03:34,468 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 02:03:34,468 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
-2025-10-05 02:03:34,470 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 02:03:34,471 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 02:03:34,486 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
-2025-10-05 02:03:36,831 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
-2025-10-05 02:03:38,465 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
-2025-10-05 02:03:38,466 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
-2025-10-05 02:03:38,466 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 02:03:38,467 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Sarah
-2025-10-05 02:03:38,467 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 02:03:38,468 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 02:07:32,930 [INFO] __main__: Starting the LLM Society application
-2025-10-05 02:07:32,930 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
-2025-10-05 02:07:32,936 [DEBUG] graph.graph_factory: Building the state graph.
-2025-10-05 02:07:32,952 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 02:07:32,952 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
-2025-10-05 02:07:32,953 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 02:07:49,554 [INFO] __main__: Starting the LLM Society application
-2025-10-05 02:07:49,555 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
-2025-10-05 02:07:49,561 [DEBUG] graph.graph_factory: Building the state graph.
-2025-10-05 02:07:49,576 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 02:07:49,576 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
-2025-10-05 02:07:49,578 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 02:07:49,578 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 02:07:49,593 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
-2025-10-05 02:07:51,954 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
-2025-10-05 02:07:53,604 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
-2025-10-05 02:07:53,604 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
-2025-10-05 02:07:53,605 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 02:07:53,605 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Sarah
-2025-10-05 02:07:53,606 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 02:07:53,606 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 02:07:53,611 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
-2025-10-05 02:07:56,018 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
-2025-10-05 02:07:58,127 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
-2025-10-05 02:07:58,128 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
-2025-10-05 02:07:58,129 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 02:07:58,129 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
-2025-10-05 02:07:58,130 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 02:07:58,131 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 02:07:58,134 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
-2025-10-05 02:08:00,642 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
-2025-10-05 02:08:02,962 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
-2025-10-05 02:08:02,962 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
-2025-10-05 02:08:02,964 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 02:08:02,965 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Sarah
-2025-10-05 02:08:02,965 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 02:08:02,966 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 02:08:02,970 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
-2025-10-05 02:08:05,591 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
-2025-10-05 02:08:07,888 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
-2025-10-05 02:08:07,889 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
-2025-10-05 02:08:07,889 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 02:08:07,890 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
-2025-10-05 02:08:07,891 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 02:08:07,891 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 02:08:07,896 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
-2025-10-05 02:08:10,526 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
-2025-10-05 02:08:13,506 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
-2025-10-05 02:08:13,507 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
-2025-10-05 02:10:00,986 [INFO] __main__: Starting the LLM Society application
-2025-10-05 02:10:00,987 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
-2025-10-05 02:10:00,993 [DEBUG] graph.graph_factory: Building the state graph.
-2025-10-05 02:10:01,010 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 02:10:01,010 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
-2025-10-05 02:10:01,012 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 02:10:01,012 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 02:10:01,027 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
-2025-10-05 02:10:03,337 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
-2025-10-05 02:10:06,470 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
-2025-10-05 02:10:06,471 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
-2025-10-05 02:10:06,472 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 02:10:06,472 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Sarah
-2025-10-05 02:10:06,473 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 02:10:06,473 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 02:10:06,478 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
-2025-10-05 02:10:08,940 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
-2025-10-05 02:10:13,128 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
-2025-10-05 02:10:13,129 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
-2025-10-05 02:10:13,130 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 02:10:13,130 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
-2025-10-05 02:10:13,131 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 02:10:13,131 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 02:10:13,135 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
-2025-10-05 02:10:15,793 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
-2025-10-05 02:10:19,837 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
-2025-10-05 02:10:19,838 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
-2025-10-05 02:10:19,839 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 02:10:19,839 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Sarah
-2025-10-05 02:10:19,840 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 02:10:19,840 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 02:10:19,845 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
-2025-10-05 02:10:22,588 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
-2025-10-05 02:10:26,497 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
-2025-10-05 02:10:26,498 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
-2025-10-05 02:10:26,499 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 02:10:26,499 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
-2025-10-05 02:10:26,500 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 02:10:26,500 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 02:10:26,505 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
-2025-10-05 02:10:29,492 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
-2025-10-05 02:10:33,831 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
-2025-10-05 02:10:33,832 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
-2025-10-05 02:12:14,377 [INFO] __main__: Starting the LLM Society application
-2025-10-05 02:12:14,378 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
-2025-10-05 02:12:14,384 [DEBUG] graph.graph_factory: Building the state graph.
-2025-10-05 02:12:14,400 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 02:12:14,401 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
-2025-10-05 02:12:14,402 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 02:12:14,402 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 02:12:14,418 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
-2025-10-05 02:12:16,696 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
-2025-10-05 02:12:19,069 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
-2025-10-05 02:12:19,070 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
-2025-10-05 02:12:19,071 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 02:12:19,071 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Sarah
-2025-10-05 02:12:19,072 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 02:12:19,072 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 02:12:19,077 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
-2025-10-05 02:12:21,520 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
-2025-10-05 02:12:24,641 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
-2025-10-05 02:12:24,642 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
-2025-10-05 02:12:24,643 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 02:12:24,643 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
-2025-10-05 02:12:24,644 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 02:12:24,644 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 02:12:24,649 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
-2025-10-05 02:12:27,220 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
-2025-10-05 02:12:30,328 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
-2025-10-05 02:12:30,329 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
-2025-10-05 02:12:30,329 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 02:12:30,330 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Sarah
-2025-10-05 02:12:30,330 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 02:12:30,331 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 02:12:30,336 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
-2025-10-05 02:12:32,995 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
-2025-10-05 02:12:36,182 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
-2025-10-05 02:12:36,183 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
-2025-10-05 02:12:36,184 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
-2025-10-05 02:12:36,184 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
-2025-10-05 02:12:36,184 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
-2025-10-05 02:12:36,186 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
-2025-10-05 02:12:36,190 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
-2025-10-05 02:12:38,951 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
-2025-10-05 02:12:41,707 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
-2025-10-05 02:12:41,708 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:08:20,783 [INFO] __main__: Starting the LLM Society application
+2025-10-07 23:08:20,784 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
+2025-10-07 23:08:20,790 [DEBUG] graph.graph_factory: Building the state graph.
+2025-10-07 23:08:20,805 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:08:20,805 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
+2025-10-07 23:08:20,807 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:08:20,807 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:08:20,823 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:08:25,526 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:09:20,825 [INFO] __main__: Starting the LLM Society application
+2025-10-07 23:09:20,825 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
+2025-10-07 23:09:20,833 [DEBUG] graph.graph_factory: Building the state graph.
+2025-10-07 23:09:20,850 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:09:20,850 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
+2025-10-07 23:09:20,851 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:09:20,851 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:09:20,868 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:09:21,205 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:09:24,436 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:09:24,437 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:09:24,438 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:09:24,438 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Sarah
+2025-10-07 23:09:24,439 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:09:24,439 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:09:24,444 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:09:24,689 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:09:28,168 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:09:28,168 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:09:28,169 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:09:28,169 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
+2025-10-07 23:09:28,170 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:09:28,171 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:09:28,175 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:09:28,567 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:09:31,245 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:09:31,246 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:09:31,246 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:09:31,246 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Sarah
+2025-10-07 23:09:31,247 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:09:31,247 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:09:31,252 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:09:31,750 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:09:35,083 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:09:35,084 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:09:35,085 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:09:35,085 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
+2025-10-07 23:09:35,085 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:09:35,087 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:09:35,090 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:09:35,745 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:09:38,720 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:09:38,721 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:10:42,829 [INFO] __main__: Starting the LLM Society application
+2025-10-07 23:10:42,829 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
+2025-10-07 23:10:42,835 [DEBUG] graph.graph_factory: Building the state graph.
+2025-10-07 23:10:42,851 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:10:42,851 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
+2025-10-07 23:10:42,852 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:10:42,853 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:10:42,868 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:10:43,188 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:10:45,734 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:10:45,735 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:10:45,736 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:10:45,736 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Sarah
+2025-10-07 23:10:45,736 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:10:45,736 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:10:45,741 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:10:45,951 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:10:48,642 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:10:48,642 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:10:48,643 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:10:48,643 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
+2025-10-07 23:10:48,644 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:10:48,644 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:10:48,648 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:10:48,986 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:10:52,044 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:10:52,045 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:10:52,046 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:10:52,046 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Sarah
+2025-10-07 23:10:52,047 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:10:52,048 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:10:52,055 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:10:52,503 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:10:55,194 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:10:55,195 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:10:55,196 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:10:55,196 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
+2025-10-07 23:10:55,197 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:10:55,197 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:10:55,202 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:10:55,767 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:10:58,975 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:10:58,976 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:12:04,578 [INFO] __main__: Starting the LLM Society application
+2025-10-07 23:12:04,578 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
+2025-10-07 23:12:04,585 [DEBUG] graph.graph_factory: Building the state graph.
+2025-10-07 23:12:04,600 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:12:04,601 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
+2025-10-07 23:12:04,602 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:12:04,603 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:12:04,619 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:12:04,946 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:12:08,094 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:12:08,095 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:12:08,096 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:12:08,096 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Sarah
+2025-10-07 23:12:08,096 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:12:08,098 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:12:08,102 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:12:08,345 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:12:11,730 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:12:11,730 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:12:11,730 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:12:11,731 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
+2025-10-07 23:12:11,731 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:12:11,732 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:12:11,736 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:12:12,114 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:12:15,432 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:12:15,433 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:12:15,434 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:12:15,434 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Sarah
+2025-10-07 23:12:15,434 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:12:15,435 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:12:15,439 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:12:15,941 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:12:19,236 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:12:19,236 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:12:19,236 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:12:19,237 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
+2025-10-07 23:12:19,237 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:12:19,238 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:12:19,242 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:12:19,894 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:12:24,995 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:12:24,996 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:14:24,102 [INFO] __main__: Starting the LLM Society application
+2025-10-07 23:14:24,103 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
+2025-10-07 23:14:24,108 [DEBUG] graph.graph_factory: Building the state graph.
+2025-10-07 23:14:24,124 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:14:24,125 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
+2025-10-07 23:14:24,126 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:14:24,126 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:14:24,143 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:14:24,470 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:14:26,619 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:14:26,620 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:14:26,620 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:14:26,620 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Sarah
+2025-10-07 23:14:26,621 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:14:26,621 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:14:26,626 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:14:26,827 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:14:29,093 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:14:29,094 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:14:29,094 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:14:29,095 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
+2025-10-07 23:14:29,095 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:14:29,096 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:14:29,100 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:14:29,380 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:14:31,215 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:14:31,216 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:14:31,216 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:14:31,217 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Sarah
+2025-10-07 23:14:31,217 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:14:31,218 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:14:31,222 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:14:31,599 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:14:33,348 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:14:33,349 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:14:33,349 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:14:33,349 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
+2025-10-07 23:14:33,350 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:14:33,351 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:14:33,354 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:14:33,792 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:14:36,230 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:14:36,230 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:15:53,607 [INFO] __main__: Starting the LLM Society application
+2025-10-07 23:15:53,607 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
+2025-10-07 23:15:53,614 [DEBUG] graph.graph_factory: Building the state graph.
+2025-10-07 23:15:53,632 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:15:53,633 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
+2025-10-07 23:15:53,634 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:15:53,634 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:15:53,651 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:15:54,018 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:15:56,046 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:15:56,047 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:15:56,048 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:15:56,048 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Sarah
+2025-10-07 23:15:56,049 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:15:56,049 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:15:56,055 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:15:56,246 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:15:58,103 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:15:58,104 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:15:58,105 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:15:58,105 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
+2025-10-07 23:15:58,106 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:15:58,106 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:15:58,110 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:15:58,375 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:16:01,367 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:16:01,368 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:16:01,369 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:16:01,369 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Sarah
+2025-10-07 23:16:01,370 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:16:01,370 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:16:01,374 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:16:01,795 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:16:04,359 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:16:04,359 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:16:04,361 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:16:04,361 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
+2025-10-07 23:16:04,362 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:16:04,362 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:16:04,366 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:16:04,877 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:16:07,217 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:16:07,217 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:21:50,678 [INFO] __main__: Starting the LLM Society application
+2025-10-07 23:21:50,679 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
+2025-10-07 23:21:50,686 [DEBUG] graph.graph_factory: Building the state graph.
+2025-10-07 23:21:50,703 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:21:50,704 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
+2025-10-07 23:21:50,705 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:21:50,706 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:21:50,721 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:21:55,106 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:21:57,332 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:21:57,333 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:21:57,333 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:21:57,334 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Sarah
+2025-10-07 23:21:57,334 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:21:57,335 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:21:57,339 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:21:57,540 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:22:00,094 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:22:00,095 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:22:00,096 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:22:00,096 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
+2025-10-07 23:22:00,097 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:22:00,097 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:22:00,101 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:22:00,389 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:22:02,802 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:22:02,803 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:22:02,804 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:22:02,804 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Sarah
+2025-10-07 23:22:02,805 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:22:02,805 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:22:02,810 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:22:03,220 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:22:05,616 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:22:05,616 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:22:05,617 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:22:05,617 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
+2025-10-07 23:22:05,618 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:22:05,618 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:22:05,625 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:22:06,131 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:22:07,983 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:22:07,984 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:23:14,509 [INFO] __main__: Starting the LLM Society application
+2025-10-07 23:23:14,510 [DEBUG] graph.chain_factory: Creating ChatOllama model with model  mistral:latest
+2025-10-07 23:23:14,517 [DEBUG] graph.graph_factory: Building the state graph.
+2025-10-07 23:23:14,536 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:23:14,536 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
+2025-10-07 23:23:14,538 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:23:14,539 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:23:14,554 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:23:14,791 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:23:16,581 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:23:16,581 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:23:16,582 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:23:16,583 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Sarah
+2025-10-07 23:23:16,583 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:23:16,583 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:23:16,589 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:23:16,782 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:23:18,098 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:23:18,099 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:23:18,099 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:23:18,099 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
+2025-10-07 23:23:18,101 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:23:18,101 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:23:18,106 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:23:18,353 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:23:20,608 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:23:20,608 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:23:20,609 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:23:20,609 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Sarah
+2025-10-07 23:23:20,610 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:23:20,611 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:23:20,616 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:23:20,965 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:23:22,997 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:23:22,999 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
+2025-10-07 23:23:23,001 [DEBUG] graph.utils.nodes: ***IN SUPERVISOR NODE***
+2025-10-07 23:23:23,001 [DEBUG] graph.utils.nodes: Supervisor selected next speaker: Bob
+2025-10-07 23:23:23,003 [DEBUG] graph.utils.nodes: ***IN AGENT SPEAK NODE***
+2025-10-07 23:23:23,003 [DEBUG] graph.chain_factory: Creating agent chain with provided prompts.
+2025-10-07 23:23:23,009 [DEBUG] urllib3.connectionpool: Starting new HTTP connection (1): localhost:11434
+2025-10-07 23:23:23,466 [DEBUG] urllib3.connectionpool: http://localhost:11434 "POST /api/chat HTTP/11" 200 None
+2025-10-07 23:23:26,032 [DEBUG] graph.utils.nodes: ***IN UPDATE MEMORY NODE***
+2025-10-07 23:23:26,033 [DEBUG] graph.utils.nodes: ***IN TICK NODE***
