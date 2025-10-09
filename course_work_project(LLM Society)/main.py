@@ -1,6 +1,7 @@
 import logging
 from logger import setup_logger
 from utils.result_formatting import format_results
+from utils.config_formatting import save_configuration_snapshot
 # TEMP/TEST imports
 from graph.graph_factory import build_graph, initialize_state
 from graph.utils.prompts import build_system_prompt, build_user_prompt
@@ -12,9 +13,10 @@ if __name__ == "__main__":
 
     state = initialize_state()
     graph = build_graph()
-    result = graph.invoke(state)
+    result = graph.invoke(state, {"recursion_limit": 100})
 
     format_results(result)
+    save_configuration_snapshot()
     print(result)
     
 
