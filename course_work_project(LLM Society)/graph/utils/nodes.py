@@ -80,7 +80,7 @@ class Nodes:
                 agent["short_mem"].pop(0)
             agent["short_mem"].append(last_message)
 
-        return {}
+        return {"agents": state["agents"]}
 
 
     #increments round and goes back to supervisor

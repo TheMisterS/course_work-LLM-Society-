@@ -16,5 +16,12 @@ AGENT_PROFILES = {
             "empathy": "low",
         },
     },
+    "Simon": {
+        "role_desc": "A complete skeptic",
+        "traits": {
+            "skepticism": "high",
+            "open-mindedness": "low",
+        },
+    },
     # Add more agent configurations as needed
 }
