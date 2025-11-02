@@ -1,8 +1,8 @@
 
 from typing import Any, Dict
 from graph.utils.state import GraphState, Msg
-from graph.utils.prompts import build_system_prompt, build_user_prompt
-from configs.simulation_config import MODEL_USED_FOR_AGENTS, DEBATE_ROUND_COUNT
+from graph.utils.prompts import generate_debate_system_prompt, generate_debate_user_prompt, generate_voting_system_prompt, generate_voting_user_prompt
+from configs.simulation_config import MEMORY_WINDOW_SIZE, MODEL_USED_FOR_DEBATE, DEBATE_ROUND_COUNT, MODEL_USED_FOR_VOTING
 from graph.chain_factory import create_agent_chain
 
 import logging
@@ -14,7 +14,13 @@ class Nodes:
     def supervisor(self, state: GraphState):
         logger.debug("***IN SUPERVISOR NODE***")
 
-        supervisor_notes = [None]
+        supervisor_notes = []
+        
+        # Check if we should transition to voting phase
+        if state["round"] >= DEBATE_ROUND_COUNT and state["phase"] == "debate":
+            logger.debug("Debate rounds complete. Transitioning to vote phase.")
+            supervisor_notes.append(f"Debate complete after {state['round']} rounds. Moving to voting phase.")
+            return {"supervisor_notes": supervisor_notes, "phase": "vote"}
 
         speakers_length = len(state["agents"])
 
@@ -23,18 +29,6 @@ class Nodes:
         logger.debug(f"Supervisor selected next speaker: {speaker}")
 
         supervisor_notes = supervisor_notes +[f"Supervisor selects: {speaker} | phase={state['phase']} | round={state['round']}"]
-        #(WIP) State shifting skeleton
-
-        # if state["round"] == 5 and state["phase"] == "debate":
-        #     phase = "role_shift"
-        #     notes += ["Switching to role_shift."]
-        # elif state["round"] == 7 and state["phase"] in ("debate","role_shift"):
-        #     phase = "vote"
-        #     notes += ["Switching to vote."]
-        # else:
-        #     phase = state["phase"]
-        #return {"supervisor_notes": notes, "next_speaker": speaker, "phase": phase}
-
         return {"supervisor_notes": supervisor_notes, "next_speaker": speaker}
 
 
@@ -48,9 +42,9 @@ class Nodes:
 
         agent = state["agents"][next_speaker]
 
-        current_sys_prompt = build_system_prompt(agent)
-        current_user_prompt = build_user_prompt(agent)
-        model = state["models"][MODEL_USED_FOR_AGENTS]
+        current_sys_prompt = generate_debate_system_prompt(agent)
+        current_user_prompt = generate_debate_user_prompt(agent)
+        model = state["models"][MODEL_USED_FOR_DEBATE]
 
         chain = create_agent_chain(model)
         response = chain.invoke({
@@ -76,7 +70,7 @@ class Nodes:
         # not good practise to update state directly, but left as is for PoC
 
         for agent in state["agents"].values():
-            if len(agent["short_mem"]) > 5: # limit short term memory (WIP, adjust via constant later)
+            if len(agent["short_mem"]) > MEMORY_WINDOW_SIZE: # limit short term memory (WIP, adjust via constant later)
                 agent["short_mem"].pop(0)
             agent["short_mem"].append(last_message)
 
@@ -88,11 +82,14 @@ class Nodes:
         logger.debug("***IN TICK NODE***")
         new_round = state["round"] + 1
 
-        if new_round >= DEBATE_ROUND_COUNT and state["phase"] == "debate":
+        # After vote phase, end the simulation
+        if state["phase"] == "vote":
+            logger.debug("Vote phase complete. Ending simulation.")
             return {"round": new_round, "phase": "END"}
 
-        return {"round": state["round"] + 1}
-        ...
+        # During debate phase, just increment round
+        logger.debug(f"Incrementing round from {state['round']} to {new_round}")
+        return {"round": new_round}
 
     #Add conditional edge after this node
     # def route_after_supervisor(state: graph_state) -> str:
@@ -109,5 +106,34 @@ class Nodes:
 
     #WIP for later
     def vote(self, state: GraphState) -> Dict[str, Any]:
+        # Voting node is designed so that each agent votes, thus all of the agents are invoked here
         logger.debug("***IN VOTE NODE***")
-        ...
+        
+        voting_options = state["voting_options"]
+        voting_question = state["voting_question"]
+        votes = {}
+        
+        for agent_name, agent_state in state["agents"].items():
+            
+            current_sys_prompt = generate_voting_system_prompt(agent_state)
+            current_user_prompt = generate_voting_user_prompt(agent_state, voting_question, voting_options)
+            model = state["models"][MODEL_USED_FOR_VOTING]
+            
+            chain = create_agent_chain(model)
+            
+            response = chain.invoke({
+                "system_message": current_sys_prompt,
+                "user_message": current_user_prompt
+            })
+            
+            votes[agent_name] = response
+            
+            print(response)
+            print("----------------------------------------------------\n")
+        
+        return {"votes": votes}
+            
+            
+            
+            
+            

@@ -1,6 +1,7 @@
+from typing import List
 from graph.utils.state import AgentState
 
-def build_system_prompt(agent: AgentState) -> str:
+def generate_debate_system_prompt(agent: AgentState) -> str:
     # transcript_slice will work as the conversation history/ short term memory
     # Agent should have some sort of function to do long term memory summarization
     prompt = f"You are {agent['name']} engaging in a dynamic conversation with other agents. Your role is: {agent['role_desc']}.\n\n"
@@ -38,7 +39,7 @@ def build_system_prompt(agent: AgentState) -> str:
     return prompt
     
 
-def build_user_prompt(agent: AgentState) -> str:
+def generate_debate_user_prompt(agent: AgentState) -> str:
     recent_msgs = agent['short_mem'][-6:] if len(agent['short_mem']) > 6 else agent['short_mem']
 
     lines = []
@@ -64,6 +65,7 @@ def build_user_prompt(agent: AgentState) -> str:
     #     - State your initial thoughts on the topic.
     #     Now respond."""
     #     return prompt
+    
     prompt = f"""Topic: {agent['agent_agenda']['debate_topic']}
 
     Your memory: (most recent first):
@@ -77,6 +79,44 @@ def build_user_prompt(agent: AgentState) -> str:
 
     return prompt
 
-def build_full_prompt(agent: AgentState) -> str:
-    # Not sure if needed, more readable without atm
-    ...
+
+def generate_voting_system_prompt(agent: AgentState) -> str:
+    prompt = f"You are {agent['name']}. Your role is: {agent['role_desc']}.\n\n"
+    
+    if agent['traits']:
+        traits_desc = "\n".join([f"{k}: {v}" for k,v in agent['traits'].items()])
+        prompt += f"Traits:\n{traits_desc}\n\n"
+    
+    prompt += """VOTING GUIDELINES:
+    - Review the debate that has taken place
+    - Consider your character's values, traits, and perspective
+    - Make a decision that aligns with your established character
+    - Provide a brief justification for your vote (1-2 sentences)
+    
+    Output format:
+    VOTE: [your choice]
+    REASON: [brief justification]
+    """
+    return prompt
+
+
+def generate_voting_user_prompt(agent: AgentState, voting_question: str, options: List[str]) -> str:
+    # Include debate summary from long_mem for now, perhaps entertain other approaches later
+    recent_msgs = agent['short_mem']
+    
+    debate_summary = "\n".join([
+        f"- [{getattr(m, 'name', 'Unknown')}]: {getattr(m, 'content', str(m))}"
+        for m in recent_msgs
+    ])
+    
+    prompt = f"""Question: {voting_question}
+
+    Available options:
+    {chr(10).join([f"- {opt}" for opt in options])}
+
+    Debate summary (most recent messages):
+    {debate_summary}
+
+    Based on the debate and your character, cast your vote."""
+    
+    return prompt

@@ -2,7 +2,7 @@ from langgraph.graph import StateGraph, END, START
 
 from configs.agent_config import AGENT_PROFILES
 from configs.models_config import MODEL_PROFILES
-from configs.simulation_config import DEBATE_TOPIC
+from configs.simulation_config import DEBATE_TOPIC, VOTING_OPTIONS, VOTING_QUESTION
 from graph.utils.state import AgentState, GraphState
 from graph.chain_factory import configure_model
 from graph.utils.nodes import Nodes
@@ -62,6 +62,8 @@ def initialize_state():
     state["agenda"] = {"debate_topic": DEBATE_TOPIC}
     state["messages"] = []
     state["votes"] = {}
+    state["voting_question"] = VOTING_QUESTION
+    state["voting_options"] = VOTING_OPTIONS
 
     return state
 
@@ -79,14 +81,15 @@ def build_graph():
     workflow.add_node("agent_speak", nodes.agent_speak)
     workflow.add_node("update_memory", nodes.update_memory)
     workflow.add_node("tick", nodes.tick)
-    # workflow.add_node("vote", vote)
+    workflow.add_node("vote", nodes.vote)
 
 
     #Edges
     workflow.add_edge(START, "supervisor")
     workflow.add_conditional_edges(
     "supervisor", route_after_supervisor, {
-       "agent_speak": "agent_speak"
+       "agent_speak": "agent_speak",
+       "vote": "vote"
       }
     )
     workflow.add_edge("agent_speak", "update_memory")

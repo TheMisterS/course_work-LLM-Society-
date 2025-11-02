@@ -29,3 +29,6 @@ class GraphState(TypedDict):
     votes: Dict[str, str]
     models: Dict[str, ChatOllama]
     next_speaker: Optional[str]
+    votes: Dict[str, str]  # agent_name -> vote_choice
+    voting_options: List[str]  # Available options to vote on
+    voting_question: str  # The question being voted on

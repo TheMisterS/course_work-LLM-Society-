@@ -4,7 +4,7 @@ from utils.result_formatting import format_results, save_graph_image
 from utils.config_formatting import save_configuration_snapshot
 # TEMP/TEST imports
 from graph.graph_factory import build_graph, initialize_state
-from graph.utils.prompts import build_system_prompt, build_user_prompt
+from graph.utils.prompts import generate_debate_system_prompt, generate_debate_user_prompt
 from IPython.display import Image, display
 
 if __name__ == "__main__":
@@ -32,11 +32,11 @@ if __name__ == "__main__":
     # state = initialize_state()
     # print(state)
 
-    # # Test prompt building
+    # # Test debate prompt building
     # state = initialize_state()
     # for agent_name, agent_state in state["agents"].items():
-    #     sys_prompt = build_system_prompt(agent_state)
-    #     user_prompt = build_user_prompt(agent_state)
+    #     sys_prompt = generate_debate_system_prompt(agent_state)
+    #     user_prompt = generate_debate_user_prompt(agent_state)
     #     print(f"System Prompt for {agent_name}:\n{sys_prompt}\n")
     #     print("----------------------------------------------------\n")
     #     print(f"User Prompt for {agent_name}:\n{user_prompt}\n")

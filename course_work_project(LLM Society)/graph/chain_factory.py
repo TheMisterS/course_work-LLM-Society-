@@ -9,7 +9,7 @@ logger = logging.getLogger(__name__)
 def configure_model(model_kwargs=MODEL_PROFILES, base_url=OLLAMA_URL):
     if not MODEL_PROFILES:
         logger.error("MODEL_KWARGS is not defined.")
-    logger.debug(f"Creating ChatOllama model with model  {model_kwargs["model"]}")
+    logger.debug(f"Creating ChatOllama model with model  {model_kwargs['model']}")
 
     model = ChatOllama(**model_kwargs)
     return model
