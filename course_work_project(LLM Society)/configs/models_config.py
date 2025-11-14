@@ -17,8 +17,8 @@ OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434")
 
 MODEL_PROFILES = {
     "model_1" :{
-        "model": os.environ.get("MODEL_1_MODEL", "mistral:latest"),
-        "temperature": float(os.environ.get("MODEL_1_TEMPERATURE", 0.7)),
+        "model": os.environ.get("MODEL_1_MODEL", "gemma3:4b"),
+        "temperature": float(os.environ.get("MODEL_1_TEMPERATURE", 0.8)),
         "top_p": float(os.environ.get("MODEL_1_TOP_P", 0.9)),
         "top_k": int(os.environ.get("MODEL_1_TOP_K", 40)),
         "num_ctx": int(os.environ.get("MODEL_1_NUM_CTX", 4096)),

@@ -16,26 +16,33 @@ class Nodes:
 
         supervisor_notes = [None]
 
+        # Increment round counter
+        new_round = state["round"] + 1
+        
+        # Check if debate should end
+        phase = state["phase"]
+        if new_round >= DEBATE_ROUND_COUNT and phase == "debate":
+            phase = "END"
+            logger.debug(f"Debate ending after {new_round} rounds")
+
         speakers_length = len(state["agents"])
 
         #retrieve next speaker (might need to randomize each phase)
-        speaker = list(state["agents"].keys())[state["round"] % speakers_length]
+        speaker = list(state["agents"].keys())[new_round % speakers_length]
         logger.debug(f"Supervisor selected next speaker: {speaker}")
 
-        supervisor_notes = supervisor_notes +[f"Supervisor selects: {speaker} | phase={state['phase']} | round={state['round']}"]
+        supervisor_notes = supervisor_notes +[f"Supervisor selects: {speaker} | phase={phase} | round={new_round}"]
         #(WIP) State shifting skeleton
 
-        # if state["round"] == 5 and state["phase"] == "debate":
+        # if new_round == 5 and phase == "debate":
         #     phase = "role_shift"
         #     notes += ["Switching to role_shift."]
-        # elif state["round"] == 7 and state["phase"] in ("debate","role_shift"):
+        # elif new_round == 7 and phase in ("debate","role_shift"):
         #     phase = "vote"
         #     notes += ["Switching to vote."]
-        # else:
-        #     phase = state["phase"]
         #return {"supervisor_notes": notes, "next_speaker": speaker, "phase": phase}
 
-        return {"supervisor_notes": supervisor_notes, "next_speaker": speaker}
+        return {"supervisor_notes": supervisor_notes, "next_speaker": speaker, "round": new_round, "phase": phase}
 
 
     def agent_speak(self, state: GraphState):
@@ -81,18 +88,6 @@ class Nodes:
             agent["short_mem"].append(last_message)
 
         return {}
-
-
-    #increments round and goes back to supervisor
-    def tick(self, state: GraphState) -> Dict[str, Any]:
-        logger.debug("***IN TICK NODE***")
-        new_round = state["round"] + 1
-
-        if new_round >= DEBATE_ROUND_COUNT and state["phase"] == "debate":
-            return {"round": new_round, "phase": "END"}
-
-        return {"round": state["round"] + 1}
-        ...
 
     #Add conditional edge after this node
     # def route_after_supervisor(state: graph_state) -> str:

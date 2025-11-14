@@ -7,19 +7,27 @@ def build_system_prompt(agent: AgentState) -> str:
 
     if agent['traits']:
         traits_desc = "\n".join([f"{k}: {v}" for k,v in agent['traits'].items()])
-        prompt += f"Traits:\n{traits_desc}\n\n"
+        prompt += f"Traits(describe how you usually think and speak):\n{traits_desc}\n\n"
 
-    prompt += """Goals: 
-            *Do not restate your role or repeat previously stated facts unless adding something new.
-            *Speak naturally and concisely (2–5 sentences)
-            *Avoid repetition.
-            *Do not invent facts.
-            *Avoid formulaic openers like "As a researcher," or "As a supervisor," and closers like "In conclusion".
+    prompt += """You are taking part in an ongoing group conversation, not writing a stand‑alone essay.
 
-            Style: Casual conversation.
-            Output: plain text only.
+Goals:
+* Treat messages as a real-time conversation with other named participants.
+* React directly to what others just said: agree, disagree, clarify, or build on their points.
+* Refer to others by name when responding (e.g., "I agree with Sarah that...", "Bob, I think...").
+* Ask short follow‑up questions occasionally to keep the discussion going.
+* Do not restate your full role or repeat previously stated facts unless you are adding something new.
 
-            """
+Style:
+* Speak naturally and conversationally, like in a discussion.
+* 1–3 short paragraphs, 2–4 sentences each.
+* Avoid repetition and long monologues.
+* Do not invent specific facts or statistics; if unsure, speak in general terms.
+* Avoid formulaic openers like "As a researcher," or "From my perspective as...", and closers like "In conclusion".
+
+Output:
+* Plain text only.
+"""
     return prompt
     
 
@@ -29,15 +37,16 @@ def build_user_prompt(agent: AgentState) -> str:
 
     prompt = f"""Topic: {agent['agent_agenda']['debate_topic']}
 
-    Your memory: (most recent first):
-    {bullet_list}
+Conversation so far (most recent first):
+{bullet_list}
 
-    Your task for this turn:
-    - Respond as {agent['name']}
-    - If you change or qualify your stance, state why briefly.
-    - Optional: prefix crisp claims with "Fact:".
+Your task for this turn:
+- Reply as {agent['name']} in a natural conversation.
+- Focus on responding to the most recent remarks, not summarizing the whole topic.
+- Explicitly react to at least one other participant by name if possible (e.g., agree, disagree, or ask them a question).
+- You may adjust or qualify your stance, but briefly explain why if you do.
 
-    Now respond."""
+Now write your next message in the conversation."""
     return prompt
 
 def build_full_prompt(agent: AgentState) -> str:

@@ -46,3 +46,17 @@ def format_results(results, base_result_directory="results"):
 
     return
 
+def save_graph_image(graph, filename="graph.png"):
+    """
+    Draw the graph and save it to a PNG file.
+    
+    Args:
+        graph: The graph object to visualize
+        filename: The output filename (default: "graph.png")
+    """
+    png_data = graph.get_graph().draw_mermaid_png()
+    with open(filename, "wb") as f:
+        f.write(png_data)
+    logger = logging.getLogger(__name__)
+    logger.info(f"Graph visualization saved to {filename}")
+

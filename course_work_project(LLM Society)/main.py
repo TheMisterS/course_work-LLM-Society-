@@ -1,6 +1,6 @@
 import logging
 from logger import setup_logger
-from utils.result_formatting import format_results
+from utils.result_formatting import format_results, save_graph_image
 from utils.config_formatting import save_configuration_snapshot
 # TEMP/TEST imports
 from graph.graph_factory import build_graph, initialize_state
@@ -13,6 +13,7 @@ if __name__ == "__main__":
 
     state = initialize_state()
     graph = build_graph()
+    save_graph_image(graph)
     result = graph.invoke(state, {"recursion_limit": 100})
 
     format_results(result)
@@ -35,4 +36,5 @@ if __name__ == "__main__":
     #     print("----------------------------------------------------\n")
     #     print(f"User Prompt for {agent_name}:\n{user_prompt}\n")
     #     print("----------------------------------------------------\n")
+    
 
