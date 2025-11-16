@@ -16,20 +16,23 @@ class Nodes:
 
         supervisor_notes = []
         
+        current_round = state["round"] + 1
+        logger.debug(f"Incrementing round from {state['round']} to {current_round}")
+        
         # Check if we should transition to voting phase
-        if state["round"] >= DEBATE_ROUND_COUNT and state["phase"] == "debate":
+        if current_round > DEBATE_ROUND_COUNT and state["phase"] == "debate":
             logger.debug("Debate rounds complete. Transitioning to vote phase.")
-            supervisor_notes.append(f"Debate complete after {state['round']} rounds. Moving to voting phase.")
-            return {"supervisor_notes": supervisor_notes, "phase": "vote"}
+            supervisor_notes.append(f"Debate complete after {current_round - 1} rounds. Moving to voting phase.")
+            return {"supervisor_notes": supervisor_notes, "phase": "vote", "round": current_round}
 
         speakers_length = len(state["agents"])
 
         #retrieve next speaker (might need to randomize each phase)
-        speaker = list(state["agents"].keys())[state["round"] % speakers_length]
+        speaker = list(state["agents"].keys())[(current_round - 1) % speakers_length]
         logger.debug(f"Supervisor selected next speaker: {speaker}")
 
-        supervisor_notes = supervisor_notes +[f"Supervisor selects: {speaker} | phase={state['phase']} | round={state['round']}"]
-        return {"supervisor_notes": supervisor_notes, "next_speaker": speaker}
+        supervisor_notes = supervisor_notes + [f"Supervisor selects: {speaker} | phase={state['phase']} | round={current_round}"]
+        return {"supervisor_notes": supervisor_notes, "next_speaker": speaker, "round": current_round}
 
 
     def agent_speak(self, state: GraphState):
@@ -77,34 +80,13 @@ class Nodes:
         return {"agents": state["agents"]}
 
 
-    #increments round and goes back to supervisor
-    def tick(self, state: GraphState) -> Dict[str, Any]:
-        logger.debug("***IN TICK NODE***")
-        new_round = state["round"] + 1
 
-        # After vote phase, end the simulation
-        if state["phase"] == "vote":
-            logger.debug("Vote phase complete. Ending simulation.")
-            return {"round": new_round, "phase": "END"}
-
-        # During debate phase, just increment round
-        logger.debug(f"Incrementing round from {state['round']} to {new_round}")
-        return {"round": new_round}
-
-    #Add conditional edge after this node
-    # def route_after_supervisor(state: graph_state) -> str:
-    #     if state["phase"] == "role_shift":
-    #         return "role_shift"
-    #     if state["phase"] == "vote":
-    #         return "vote"
-    #     return "agent_speak"
 
     #Route after agent interaction, either end or to tick to increment round
     def router(self, state: GraphState) -> str:
         logger.debug("***IN ROUTER NODE***")
         ...
 
-    #WIP for later
     def vote(self, state: GraphState) -> Dict[str, Any]:
         # Voting node is designed so that each agent votes, thus all of the agents are invoked here
         logger.debug("***IN VOTE NODE***")
@@ -131,7 +113,8 @@ class Nodes:
             print(response)
             print("----------------------------------------------------\n")
         
-        return {"votes": votes}
+        logger.debug("Vote phase complete.")
+        return {"votes": votes, "phase": "END"}
             
             
             

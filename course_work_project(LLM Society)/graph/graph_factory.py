@@ -22,9 +22,9 @@ def route_after_supervisor(state: GraphState) -> str:
         return "vote"
     return "agent_speak"
 
-def route_after_tick(state: GraphState) -> str:
+def route_after_update_memory(state: GraphState) -> str:
     """
-    Determine the next node after the tick based on the current phase.
+    Determine the next node after update_memory based on the current phase.
     """
     if state["phase"] == "END":
         return "END"
@@ -80,7 +80,6 @@ def build_graph():
     workflow.add_node("supervisor", nodes.supervisor)
     workflow.add_node("agent_speak", nodes.agent_speak)
     workflow.add_node("update_memory", nodes.update_memory)
-    workflow.add_node("tick", nodes.tick)
     workflow.add_node("vote", nodes.vote)
 
 
@@ -93,11 +92,11 @@ def build_graph():
       }
     )
     workflow.add_edge("agent_speak", "update_memory")
-    workflow.add_edge("update_memory", "tick")
-    workflow.add_conditional_edges("tick", route_after_tick, {
+    workflow.add_conditional_edges("update_memory", route_after_update_memory, {
         "END": END,
         "supervisor": "supervisor"
     })
+    workflow.add_edge("vote", END)
 
     ...
     graph = workflow.compile()

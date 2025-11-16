@@ -6,10 +6,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # General agenda items
-DEBATE_TOPIC = os.environ.get("DEBATE_TOPIC", """Plans for the weekend""")
+DEBATE_TOPIC = os.environ.get("DEBATE_TOPIC", """The impact of artificial intelligence on society?""")
 
 #Voting configuration
-VOTING_QUESTION = os.environ.get("VOTING_QUESTION", "Based on the debate, what is your final position on the topic?")
+VOTING_QUESTION = os.environ.get("VOTING_QUESTION", "Based on the debate, what is your final position on the topic? Do you think the impact of artificial intelligence on society is overall positive?")
 
 VOTING_OPTIONS = os.environ.get("VOTING_OPTIONS", "Strongly For,For,Neutral,Against,Strongly Against").split(",")
 VOTING_OPTIONS = [option.strip() for option in VOTING_OPTIONS]
