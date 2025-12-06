@@ -21,3 +21,9 @@ MODEL_USED_FOR_VOTING = os.environ.get("MODEL_USED_FOR_VOTING", "model_1")
 # Debate configuration
 DEBATE_ROUND_COUNT = int(os.environ.get("DEBATE_ROUND_COUNT", 10)) # Total number of debate rounds before voting phase
 MEMORY_WINDOW_SIZE = int(os.environ.get("MEMORY_WINDOW_SIZE", 5))  # Number of recent messages to retain in memory
+
+# Long-term memory configuration
+LONG_MEMORY_ENABLED = os.environ.get("LONG_MEMORY_ENABLED", "true").lower() == "true"  # Enable/disable long-term memory feature
+LONG_MEMORY_UPDATE_INTERVAL = int(os.environ.get("LONG_MEMORY_UPDATE_INTERVAL", 5))  # Update long memory every N rounds
+LONG_MEMORY_THRESHOLD_PERCENT = float(os.environ.get("LONG_MEMORY_THRESHOLD_PERCENT", 0.8))  # Trigger when short_mem is at least 80% full
+MODEL_USED_FOR_SUMMARIZATION = os.environ.get("MODEL_USED_FOR_SUMMARIZATION", "model_1")  # Model used for memory summarization
