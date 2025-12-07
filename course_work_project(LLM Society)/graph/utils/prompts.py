@@ -20,10 +20,10 @@ def format_messages_for_summary(messages: List) -> str:
 
 def generate_initial_memory_summary_prompt(agent: AgentState, messages: List) -> dict:
     """
-    Generate system and user prompts for creating the first long-term memory summary.
+    Generate system and user prompts for creating the FIRST long-term memory summary.
     Returns dict with 'system_message' and 'user_message' keys.
     """
-    logger.debug(f"Generating initial memory summary prompt for agent: {agent['name']}")
+    logger.debug(f"Generating initial long term memory summary prompt for agent: {agent['name']}")
     
     formatted_messages = format_messages_for_summary(messages)
     
@@ -34,9 +34,11 @@ def generate_initial_memory_summary_prompt(agent: AgentState, messages: List) ->
         "- Key points and arguments made by participants\n"
         "- Important reactions or positions taken\n"
         "- Any significant agreements or disagreements\n"
-        "- Information that would be valuable for {agent['name']} to remember later\n"
-        "Write in third person, as if describing what happened from an observer's view.\n"
-        "Keep the summary concise but informative (3-5 sentences)."
+        f"- Information that would be valuable for {agent['name']} to remember later\n\n"
+        f"Write in first person, as if you are {agent['name']} recalling what happened. Use 'I' statements.\n"
+        "Keep the summary concise but informative (3-5 sentences).\n\n"
+        "IMPORTANT: Provide ONLY the summary itself. Do not include any preambles like 'Here's a summary' or "
+        "'I'll summarize this as'. Start directly with the summary content."
     )
     
     user_message = (
@@ -50,7 +52,7 @@ def generate_initial_memory_summary_prompt(agent: AgentState, messages: List) ->
 
 def generate_update_memory_summary_prompt(agent: AgentState, existing_summary: str, new_messages: List) -> dict:
     """
-    Generate system and user prompts for updating an existing long-term memory summary.
+    Generate system and user prompts for updating an EXISTING long-term memory summary.
     The LLM will merge new conversation context into the existing summary.
     Returns dict with 'system_message' and 'user_message' keys.
     """
@@ -66,7 +68,9 @@ def generate_update_memory_summary_prompt(agent: AgentState, existing_summary: s
         "- Preserve important earlier context that remains relevant\n"
         "- Update or revise points if positions have changed\n"
         "- Keep the summary concise but comprehensive (4-6 sentences)\n"
-        "- Write in third person, as if describing what happened from an observer's view."
+        f"- Write in first person, as if you are {agent['name']} recalling what happened. Use 'I' statements.\n\n"
+        "CRITICAL: Provide ONLY the updated summary itself. Do not include preambles like 'Here's the updated summary' or "
+        "'I've updated the summary'. Do not mention that you updated anything. Start directly with the summary content."
     )
     
     user_message = (
@@ -93,7 +97,7 @@ def format_long_memory_section(agent: AgentState) -> str:
     logger.debug(f"Including long-term memory for agent: {agent['name']} (total summaries: {len(agent['long_mem'])})")
     
     return (
-        f"Earlier in the conversation (summary):\n"
+        f"Long term memory (summary):\n"
         f"{latest_summary}\n\n"
     )
 
@@ -114,10 +118,8 @@ def generate_debate_system_prompt(agent: AgentState) -> str:
         "- Keep the tone casual; the others are your peers.\n"
         "- Let your reactions follow what feels natural for your personality.\n"
         "  For example, you might respond directly, change the angle, tell a small story,\n"
-        "- It's okay to show emotions and be opinionated.\n"
         "  ask a question, or even go on a small tangent.\n"
         "- It's okay to show emotions and be opinionated.\n"
-        "- If you don't know something, just admit it.\n"
         "- If you don't know something, you can say so or simply avoid that angle.\n"
         "Do NOT explain that you are an AI or mention any guidelines.\n"
         "Write only what you say in this turn as "
@@ -197,12 +199,18 @@ def generate_voting_user_prompt(agent: AgentState, voting_question: str, options
         for m in recent_msgs
     ])
     
+    # Get long-term memory section for full context
+    long_memory_section = format_long_memory_section(agent)
+    
     prompt = f"""Question: {voting_question}
 
     Available options:
     {chr(10).join([f"- {opt}" for opt in options])}
 
-    Debate summary (most recent messages):
+    Long term memory:
+    {long_memory_section}
+    
+    Recent conversation summary (most recent messages):
     {debate_summary}
 
     Based on the debate and your character, cast your vote."""

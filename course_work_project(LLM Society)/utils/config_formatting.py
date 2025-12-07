@@ -100,23 +100,19 @@ def format_all_configurations() -> str:
     return "\n".join(sections)
 
 
-def save_configuration_snapshot(base_dir="results"):
+def save_configuration_snapshot(subsession_path):
     """
-    Save current system configuration to a timestamped file.
+    Save current system configuration to a timestamped file in the subsession folder.
     
     Args:
-        base_dir: Base directory for results (default: "results")
+        subsession_path: Path to the subsession folder where config should be saved
     
     Returns:
         str: Path to the saved configuration file
     """
-    current_date_stamp = date_stamp()
     current_time_stamp = date_time_stamp()
     
-    session_dir = os.path.join(base_dir, f"session_{current_date_stamp}")
-    os.makedirs(session_dir, exist_ok=True)
-
-    filepath = os.path.join(session_dir, f"configuration_{current_time_stamp}.txt")
+    filepath = os.path.join(subsession_path, f"configuration_{current_time_stamp}.txt")
 
     with open(filepath, 'w', encoding='utf-8') as f:
         f.write(format_all_configurations())

@@ -26,7 +26,6 @@ class GraphState(TypedDict):
     #Reducer used here to accumulate notes
     supervisor_notes: Annotated[list[str], add]
     agenda: Dict[str, str]
-    votes: Dict[str, str]
     models: Dict[str, ChatOllama]
     next_speaker: Optional[str]
     votes: Dict[str, str]  # agent_name -> vote_choice

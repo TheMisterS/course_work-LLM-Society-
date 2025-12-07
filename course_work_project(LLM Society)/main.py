@@ -21,8 +21,8 @@ if __name__ == "__main__":
     result = graph.invoke(state, {"recursion_limit": 100})
 
 
-    format_results(result)
-    save_configuration_snapshot()
+    subsession_path = format_results(result)
+    save_configuration_snapshot(subsession_path)
     print(result)
     
 
