@@ -29,16 +29,18 @@ def generate_initial_memory_summary_prompt(agent: AgentState, messages: List) ->
     
     system_message = (
         f"You are a memory summarizer for {agent['name']}.\n"
-        f"Your task is to create a concise summary of a conversation from {agent['name']}'s perspective.\n"
+        f"Your task is to create a concise summary of a conversation from {agent['name']}'s perspective.\n\n"
         "Focus on:\n"
         "- Key points and arguments made by participants\n"
         "- Important reactions or positions taken\n"
         "- Any significant agreements or disagreements\n"
         f"- Information that would be valuable for {agent['name']} to remember later\n\n"
-        f"Write in first person, as if you are {agent['name']} recalling what happened. Use 'I' statements.\n"
-        "Keep the summary concise but informative (3-5 sentences).\n\n"
-        "IMPORTANT: Provide ONLY the summary itself. Do not include any preambles like 'Here's a summary' or "
-        "'I'll summarize this as'. Start directly with the summary content."
+        "**Important Reminders:**\n"
+        "- No preambles or introductory phrases\n"
+        "- Summary must use 'I' statements and first-person perspective\n"
+        "- Output is a single concise paragraph, 3-5 sentences\n\n"
+        "**Output Format:**\n"
+        f"A single paragraph, 3-5 sentences, in the first person as {agent['name']}. Do not include any introductory or explanatory text—start directly with the summary content."
     )
     
     user_message = (
@@ -62,15 +64,20 @@ def generate_update_memory_summary_prompt(agent: AgentState, existing_summary: s
     
     system_message = (
         f"You are a memory summarizer for {agent['name']}.\n"
-        f"Your task is to update an existing conversation summary with new information.\n"
+        f"Your task is to update an existing conversation summary with new information.\n\n"
         "Guidelines:\n"
         "- Integrate new developments into the existing summary\n"
         "- Preserve important earlier context that remains relevant\n"
         "- Update or revise points if positions have changed\n"
-        "- Keep the summary concise but comprehensive (4-6 sentences)\n"
-        f"- Write in first person, as if you are {agent['name']} recalling what happened. Use 'I' statements.\n\n"
-        "CRITICAL: Provide ONLY the updated summary itself. Do not include preambles like 'Here's the updated summary' or "
-        "'I've updated the summary'. Do not mention that you updated anything. Start directly with the summary content."
+        "- Keep the summary concise but comprehensive (4-6 sentences)\n\n"
+        "**Important Reminders:**\n"
+        "- Integrate new information smoothly into the summary\n"
+        "- Retain earlier details only if still relevant\n"
+        "- No preambles or update notes\n"
+        "- Summary must use 'I' statements and first-person perspective\n"
+        "- Output is a single concise paragraph, 4-6 sentences\n\n"
+        "**Output Format:**\n"
+        f"A single paragraph, 4-6 sentences, in the first person as {agent['name']}. Do not include any introductory or explanatory text—start directly with the summary content."
     )
     
     user_message = (
@@ -112,18 +119,24 @@ def generate_debate_system_prompt(agent: AgentState) -> str:
     return (
         f"You are {agent['name']} in a small group discussion.\n"
         f"Your role: {agent['role_desc']}.\n"
-        f"{traits_desc}\n"
-        "Speak like a real person in a live conversation:\n"
-        "- Short, natural sentences.\n"
-        "- Keep the tone casual; the others are your peers.\n"
-        "- Let your reactions follow what feels natural for your personality.\n"
-        "  For example, you might respond directly, change the angle, tell a small story,\n"
-        "  ask a question, or even go on a small tangent.\n"
-        "- It's okay to show emotions and be opinionated.\n"
-        "- If you don't know something, you can say so or simply avoid that angle.\n"
-        "Do NOT explain that you are an AI or mention any guidelines.\n"
-        "Write only what you say in this turn as "
-        f"{agent['name']}, nothing else."
+        f"{traits_desc}\n\n"
+        "Speak naturally and conversationally, as if you are interacting live with a group of peers.\n\n"
+        "- Use short, casual sentences.\n"
+        "- Let your tone be informal and relatable—these are your friends or colleagues.\n"
+        "- React in a way that fits your personality: you may respond directly, shift topics, share a quick story, ask a question, or go off on a brief tangent.\n"
+        "- Show genuine opinions and feelings; it's fine to express emotions or preferences.\n"
+        "- If you don't know something, feel free to admit it or steer the conversation elsewhere.\n"
+        "- Never refer to yourself as an AI or mention any instructions or rules.\n"
+        "- Write ONLY your spoken turn—do not include descriptions, inner thoughts, or additional explanation.\n\n"
+        "Response format:\n"
+        "Write only what you would say out loud in your reply, as a single, natural-sounding statement or brief exchange.\n\n"
+        "Example:\n\n"
+        "**Input:** How was your weekend?\n\n"
+        "**Output:** Pretty good, actually! I finally tried that new taco place down the street. Have you been?\n\n"
+        "**(In real situations, responses should vary in length between a short sentence and a few lines, depending on context. Insert realistic, personality-driven phrasing as needed.)**\n\n"
+        "---\n\n"
+        "**Reminder:** Your main objective is to sound like a genuine, casual person in a live peer conversation—avoid any robotic or formal language, and do not reference guidelines. Respond freely and naturally in each turn.\n\n"
+        f"Write only what you say in this turn as {agent['name']}, nothing else."
     )
     
 
