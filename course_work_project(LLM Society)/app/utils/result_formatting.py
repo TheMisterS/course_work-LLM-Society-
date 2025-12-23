@@ -1,6 +1,7 @@
 
 import os
 import logging
+import json
 
 logger = logging.getLogger(__name__)
 
@@ -78,6 +79,50 @@ def format_results(results, base_result_directory="results"):
                 f.write("No long-term memory summaries recorded.\n\n")
     
     return subsession_folder_path
+
+
+def export_state_to_json(results, subsession_folder_path):
+    """
+    Export the final state to a JSON file.
+    
+    Args:
+        results: The final state dict
+        subsession_folder_path: Path to the subsession folder
+    
+    Returns:
+        json_file_path: Path to the created JSON file
+    """
+    current_time_stamp = date_time_stamp()
+    json_file = os.path.join(subsession_folder_path, f"state_{current_time_stamp}.json")
+    
+    serializable_state = {
+        "messages": results.get("messages", []),
+        "agents": {},
+        "round": results.get("round", 0),
+        "phase": results.get("phase", "done"),
+        "supervisor_notes": results.get("supervisor_notes", []),
+        "agenda": results.get("agenda", {}),
+        "next_speaker": results.get("next_speaker", None),
+        "votes": results.get("votes", {}),
+        "voting_options": results.get("voting_options", []),
+        "voting_question": results.get("voting_question", "")
+    }
+    
+    for agent_name, agent_state in results.get("agents", {}).items():
+        serializable_state["agents"][agent_name] = {
+            "name": agent_state.get("name", agent_name),
+            "role_desc": agent_state.get("role_desc", ""),
+            "traits": agent_state.get("traits", {}),
+            "long_mem": agent_state.get("long_mem", []),
+            "short_mem": agent_state.get("short_mem", []),
+            "agent_agenda": agent_state.get("agent_agenda", {})
+        }
+    
+    with open(json_file, "w", encoding="utf-8") as f:
+        json.dump(serializable_state, f, indent=2, ensure_ascii=False)
+    
+    logger.info(f"State exported to JSON: {json_file}")
+    return json_file
     
 
 def save_graph_image(graph, filename="graph.png"):

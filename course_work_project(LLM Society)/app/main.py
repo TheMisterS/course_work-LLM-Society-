@@ -1,6 +1,6 @@
 import logging
 from logger import setup_logger
-from utils.result_formatting import format_results, save_graph_image
+from utils.result_formatting import format_results, save_graph_image, export_state_to_json
 from utils.config_formatting import save_configuration_snapshot
 # TEMP/TEST imports
 from graph.graph_factory import build_graph, initialize_state
@@ -22,6 +22,7 @@ if __name__ == "__main__":
 
 
     subsession_path = format_results(result)
+    export_state_to_json(result, subsession_path)
     save_configuration_snapshot(subsession_path)
     print(result)
     
