@@ -12,8 +12,6 @@ from configs.simulation_config import (
 )
 from utils.time_and_dates import date_stamp, date_time_stamp
 
-
-
 def format_simulation_config() -> str:
     """Format simulation configuration section."""
     lines = [
@@ -36,7 +34,6 @@ def format_simulation_config() -> str:
     
     return "\n".join(lines)
 
-
 def format_model_config() -> str:
     """Format model configuration section."""
     lines = [
@@ -56,7 +53,6 @@ def format_model_config() -> str:
         lines.append("")
     
     return "\n".join(lines)
-
 
 def format_agent_config() -> str:
     """Format agent configuration section."""
@@ -78,7 +74,6 @@ def format_agent_config() -> str:
     
     return "\n".join(lines)
 
-
 def format_all_configurations() -> str:
     """Format all system configurations into a readable text format."""
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -98,7 +93,6 @@ def format_all_configurations() -> str:
     ]
     
     return "\n".join(sections)
-
 
 def save_configuration_snapshot(subsession_path):
     """

@@ -15,15 +15,15 @@ if __name__ == "__main__":
     state = initialize_state()
     graph = build_graph()
     
-    save_graph_image(graph, filename="graph.png")
+    # save_graph_image(graph, filename="graph.png")
 
 
     result = graph.invoke(state, {"recursion_limit": 100})
 
 
-    subsession_path = format_results(result)
-    export_state_to_json(result, subsession_path)
-    save_configuration_snapshot(subsession_path)
+    # subsession_path = format_results(result)
+    # export_state_to_json(result, subsession_path)
+    # save_configuration_snapshot(subsession_path)
     print(result)
     
 
