@@ -11,7 +11,7 @@ from configs.simulation_config import (
 )
 from graph.utils.state import AgentState, GraphState
 from graph.chain_factory import configure_model
-from graph.utils.nodes import Nodes
+from graph.utils.society_nodes import SocietyNodes
 
 import logging
 logger = logging.getLogger(__name__)
@@ -98,7 +98,7 @@ def build_graph():
     logger.debug(f"Long memory feature enabled: {LONG_MEMORY_ENABLED}")
     
     workflow = StateGraph(GraphState)
-    nodes = Nodes()
+    nodes = SocietyNodes()
     
     #Nodes
     workflow.add_node("supervisor", nodes.supervisor)

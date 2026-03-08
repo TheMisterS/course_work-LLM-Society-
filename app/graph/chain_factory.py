@@ -1,18 +1,33 @@
 from configs.models_config import MODEL_PROFILES, OLLAMA_URL
-from langchain_community.chat_models import ChatOllama
+
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
 import logging
 logger = logging.getLogger(__name__)
 
-def configure_model(model_kwargs=MODEL_PROFILES, base_url=OLLAMA_URL):
-    if not MODEL_PROFILES:
-        logger.error("MODEL_KWARGS is not defined.")
-    logger.debug(f"Creating ChatOllama model with model  {model_kwargs['model']}")
+_OLLAMA_KEYS = {"model", "temperature", "top_p", "top_k", "num_ctx", "num_predict", "repeat_penalty", "base_url"}
+_OPENAI_KEYS = {"model", "temperature", "api_key", "base_url", "max_tokens"}
 
-    model = ChatOllama(**model_kwargs)
-    return model
+def configure_model(profile: dict):
+    provider = profile.get("provider", "ollama")
+    logger.debug(f"Configuring model — provider: {provider!r}, model: {profile.get('model')!r}")
+
+    if provider == "ollama":
+        from langchain_community.chat_models import ChatOllama
+        kwargs = {k: v for k, v in profile.items() if k in _OLLAMA_KEYS and v is not None}
+        kwargs.setdefault("base_url", OLLAMA_URL)
+        return ChatOllama(**kwargs)
+
+    elif provider in ("openai", "openrouter"):
+        from langchain_openai import ChatOpenAI
+        kwargs = {k: v for k, v in profile.items() if k in _OPENAI_KEYS and v is not None}
+        if provider == "openrouter":
+            kwargs.setdefault("base_url", "https://openrouter.ai/api/v1")
+        return ChatOpenAI(**kwargs)
+
+    else:
+        raise ValueError(f"Unknown provider {provider!r}. Supported: ollama, openai, openrouter")
 
 
 def create_agent_chain(model):

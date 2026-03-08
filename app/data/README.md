@@ -4,11 +4,8 @@ This directory contains the data that was gathered during the course work/bachel
 
 # Data items
 
-
 - **"Europos socialinio tyrimo 11-osios bangos Lietuvoje duomenys 2024"**
-    - **from_ess**
-        Contains d
-    - from_vdu
+    Contains data from The European Social Survey (ESS) 2024
 - **"lygybe_dot_lt_data"**
     - "Lentelės - LGKT 2024 07" \
       Data from research "Žmogaus teisių supratimas Lietuvoje: reprezentatyvi visuomenės nuomonės apklausa"

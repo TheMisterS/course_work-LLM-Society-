@@ -1,6 +1,8 @@
-colorlog
-ipython
-langchain_community
-langchain_core
-langgraph
-python-dotenv
+beautifulsoup4>=4.12
+colorlog==6.10.1
+ipython==9.10.0
+langchain_community==0.4.1
+langchain_core==1.2.16
+langgraph==1.0.10
+pandas>=2.0
+python-dotenv==1.2.1
