@@ -218,6 +218,7 @@ def write_personas_csv(
     """Read the raw ESS CSV, decode persona fields, and write personas.csv."""
     keep_cols = [source_id_col] + persona_fields
     df = pd.read_csv(raw_csv_path, usecols=keep_cols, encoding="utf-8")
+    total_rows = len(df)
     df = df.rename(columns={source_id_col: "source_id"})
 
     for field in persona_fields:
@@ -236,10 +237,20 @@ def write_personas_csv(
         if decoder:
             df[field] = df[field].map(decoder).fillna(df[field])
 
+    # Keep only complete personas for the selected persona fields.
+    df = df.dropna(subset=persona_fields)
+    kept_rows = len(df)
+    removed_rows = total_rows - kept_rows
+
     # reorder columns: source_id first, then persona fields
     df = df[["source_id"] + persona_fields]
     df.to_csv(out_path, index=False, encoding="utf-8")
-    print(f"Wrote {len(df)} personas → {out_path}")
+    print(
+        "Wrote "
+        f"{kept_rows}/{total_rows} personas "
+        f"(removed {removed_rows} rows with missing selected persona fields) "
+        f"→ {out_path}"
+    )
 
 
 def write_answers_csv(

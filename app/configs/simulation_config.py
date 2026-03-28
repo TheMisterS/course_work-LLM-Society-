@@ -3,7 +3,7 @@
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(dotenv_path=os.environ.get("APP_ENV_FILE", ".env"))
 
 # General agenda items
 DEBATE_TOPIC = os.environ.get("DEBATE_TOPIC", """The impact of artificial intelligence on society?""")

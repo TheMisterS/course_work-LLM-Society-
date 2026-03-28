@@ -3,7 +3,7 @@ import os
 import logging
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(dotenv_path=os.environ.get("APP_ENV_FILE", ".env"))
 
 LOG_FILE = os.environ.get("LOG_FILE", "app.log")
 

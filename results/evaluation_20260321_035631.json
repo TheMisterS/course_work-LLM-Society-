@@ -1,0 +1,66 @@
+{
+  "summary": {
+    "batch_path": "..\\results\\batch_20260321_034742.csv",
+    "ground_truth_path": "C:\\Users\\urbut\\Desktop\\4.2 kursas\\bakis_demo\\course_work-LLM-Society-\\app\\data\\datasets\\ess_11_lt\\answers.csv",
+    "batch_rows": 1347,
+    "truth_rows": 1365,
+    "matched_rows": 1347,
+    "batch_only_rows": 0,
+    "truth_only_rows": 18,
+    "compared_question_count": 5,
+    "compared_cell_count": 6668,
+    "valid_batch_cell_count": 6734,
+    "overall_cell_exact_match_rate": 0.1828134373125375,
+    "row_all_questions_exact_match_rate": 0.0
+  },
+  "per_question": [
+    {
+      "question": "freehms",
+      "compared_cells": 1330,
+      "valid_batch_cells": 1346,
+      "missing_count": 1,
+      "invalid_count": 0,
+      "exact_matches": 90,
+      "exact_match_rate": 0.06766917293233082
+    },
+    {
+      "question": "gincdif",
+      "compared_cells": 1336,
+      "valid_batch_cells": 1347,
+      "missing_count": 0,
+      "invalid_count": 0,
+      "exact_matches": 411,
+      "exact_match_rate": 0.30763473053892215
+    },
+    {
+      "question": "happy",
+      "compared_cells": 1343,
+      "valid_batch_cells": 1347,
+      "missing_count": 0,
+      "invalid_count": 0,
+      "exact_matches": 292,
+      "exact_match_rate": 0.21742367833209233
+    },
+    {
+      "question": "stflife",
+      "compared_cells": 1323,
+      "valid_batch_cells": 1347,
+      "missing_count": 0,
+      "invalid_count": 0,
+      "exact_matches": 315,
+      "exact_match_rate": 0.23809523809523808
+    },
+    {
+      "question": "trstprl",
+      "compared_cells": 1336,
+      "valid_batch_cells": 1347,
+      "missing_count": 0,
+      "invalid_count": 0,
+      "exact_matches": 111,
+      "exact_match_rate": 0.08308383233532934
+    }
+  ],
+  "diagnostics": [
+    "Ground truth has 18 source_id values not in batch"
+  ]
+}

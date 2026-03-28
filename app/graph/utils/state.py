@@ -5,6 +5,8 @@ from langgraph.graph import add_messages
 from operator import add
 from typing import Annotated
 
+from data.types import Question
+
 class Msg(TypedDict):
     role: Literal["system","user","assistant","agent","supervisor"]
     name: Optional[str]
@@ -37,8 +39,11 @@ class IndividualPersona(TypedDict):
 
 class IndividualState(TypedDict):
     persona: IndividualPersona
-    questions: List[str]
+    questions: List[Question]
     current_question_index: int
     messages: Annotated[List[Msg], add]
     phase: Literal["individual","done"]
     models: Dict[str, ChatOllama]
+    answers: Dict[str, str]       # question_key -> raw LLM response text
+    answers_structured: Dict[str, int | float | str]  # question_key -> parsed answer value
+    source_id: Optional[str]      # trace back to original respondent

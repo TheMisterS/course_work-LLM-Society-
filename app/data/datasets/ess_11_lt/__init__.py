@@ -17,14 +17,20 @@ import pandas as pd
 from data.types import Persona, Question, ResponseType
 
 _DIR = Path(__file__).resolve().parent
-_QUESTIONS_PATH = _DIR / "questions.json"
-_PERSONAS_PATH  = _DIR / "personas.csv"
-_ANSWERS_PATH   = _DIR / "answers.csv"
+_VALIDATED_DIR = _DIR / "human_validated_dataset"
+_ANSWERS_PATH  = _DIR / "answers.csv"
 
 
-def load_questions() -> List[Question]:
-    """Load questions from ``questions.json`` into ``Question`` dataclass instances."""
-    raw: list[dict] = json.loads(_QUESTIONS_PATH.read_text(encoding="utf-8"))
+def load_questions(validated: bool = False) -> List[Question]:
+    """Load questions from ``questions.json`` into ``Question`` dataclass instances.
+
+    Parameters
+    ----------
+    validated : bool
+        When *True*, load from the ``human_validated_dataset/`` subdirectory.
+    """
+    questions_path = (_VALIDATED_DIR if validated else _DIR) / "questions.json"
+    raw: list[dict] = json.loads(questions_path.read_text(encoding="utf-8"))
     questions: list[Question] = []
     for entry in raw:
         options = {int(k): v for k, v in entry.get("options", {}).items()}
@@ -42,14 +48,20 @@ def load_questions() -> List[Question]:
         )
     return questions
 
-def load_personas() -> List[Persona]:
+def load_personas(validated: bool = False) -> List[Persona]:
     """Load respondent profiles from ``personas.csv`` into ``Persona`` dataclass instances.
+
+    Parameters
+    ----------
+    validated : bool
+        When *True*, load personas from the ``human_validated_dataset/`` subdirectory.
 
     If ``answers.csv`` exists alongside ``personas.csv``, each persona's
     ``answers`` dict is populated with the raw coded survey responses
     (question key → int/float).  Otherwise ``answers`` stays empty.
     """
-    df = pd.read_csv(_PERSONAS_PATH, encoding="utf-8", dtype=str)
+    personas_path = (_VALIDATED_DIR if validated else _DIR) / "personas.csv"
+    df = pd.read_csv(personas_path, encoding="utf-8", dtype=str)
 
     # load answers keyed by source_id (if file exists)
     answers_by_id: dict[str, dict[str, int | float | str]] = {}

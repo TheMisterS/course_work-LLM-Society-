@@ -11,7 +11,7 @@ If you wish to test against different models on the same simulation, it should c
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(dotenv_path=os.environ.get("APP_ENV_FILE", ".env"))
 
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434")
 
@@ -24,7 +24,7 @@ MODEL_PROFILES = {
         # provider: ollama | openai | openrouter
         "provider": os.environ.get("MODEL_1_PROVIDER", "ollama"),
         "model": os.environ.get("MODEL_1_MODEL", "llama3.1:8b"),
-        "temperature": float(os.environ.get("MODEL_1_TEMPERATURE", 0.9)),
+        "temperature": float(os.environ.get("MODEL_1_TEMPERATURE", 0.2)),
         # Ollama-specific
         "top_p": float(os.environ.get("MODEL_1_TOP_P", 0.9)),
         "top_k": int(os.environ.get("MODEL_1_TOP_K", 40)),
@@ -35,6 +35,15 @@ MODEL_PROFILES = {
         "api_key": os.environ.get("MODEL_1_API_KEY"),
         "base_url": os.environ.get("MODEL_1_BASE_URL"),
         "max_tokens": _int_or_none("MODEL_1_MAX_TOKENS"),
-    }
+    },
+    # Dedicated OpenRouter profile for direct API calls.
+    "openrouter_gpt4o_mini": {
+        "provider": "openrouter",
+        "model": os.environ.get("OPENROUTER_MODEL", "openai/gpt-4o-mini"),
+        "temperature": float(os.environ.get("OPENROUTER_TEMPERATURE", 0.2)),
+        "api_key": os.environ.get("OPENROUTER_API_KEY"),
+        "base_url": os.environ.get("OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1"),
+        "max_tokens": _int_or_none("OPENROUTER_MAX_TOKENS"),
+    },
     # Add more model configurations as needed
 }

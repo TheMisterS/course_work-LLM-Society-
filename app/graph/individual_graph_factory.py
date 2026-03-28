@@ -2,12 +2,15 @@ from langgraph.graph import StateGraph, END, START
 
 from configs.individual_config import (
     INDIVIDUAL_PROFILE,
-    INDIVIDUAL_QUESTIONS,
+    INDIVIDUAL_QUESTION_OBJECTS,
+    INDIVIDUAL_PERSONA,
 )
 from configs.models_config import MODEL_PROFILES
 from graph.utils.state import IndividualPersona, IndividualState
 from graph.chain_factory import configure_model
 from graph.utils.individual_nodes import IndividualInterviewNodes
+from data.types import Persona, Question
+from typing import List, Optional
 
 import logging
 logger = logging.getLogger(__name__)
@@ -29,9 +32,24 @@ def route_after_response(state: IndividualState) -> str:
 # State initialisation
 # ---------------------------------------------------------------------------
 
-def initialize_individual_state() -> IndividualState:
-    persona: IndividualPersona = {
-        "demographics": INDIVIDUAL_PROFILE["demographics"],
+def initialize_individual_state(
+    persona: Optional[Persona] = None,
+    questions: Optional[List[Question]] = None,
+) -> IndividualState:
+    """Build the initial state for an individual interview.
+
+    Parameters
+    ----------
+    persona : Persona, optional
+        Override the default persona loaded from config.
+    questions : list[Question], optional
+        Override the default question list loaded from config.
+    """
+    p = persona or INDIVIDUAL_PERSONA
+    q = questions or INDIVIDUAL_QUESTION_OBJECTS
+
+    ind_persona: IndividualPersona = {
+        "demographics": {k: str(v) for k, v in p.attributes.items()},
     }
 
     models = {}
@@ -39,17 +57,20 @@ def initialize_individual_state() -> IndividualState:
         models[model_key] = configure_model(profile)
 
     state: IndividualState = {
-        "persona": persona,
-        "questions": INDIVIDUAL_QUESTIONS,
+        "persona": ind_persona,
+        "questions": q,
         "current_question_index": 0,
         "messages": [],
         "phase": "individual",
         "models": models,
+        "answers": {},
+        "answers_structured": {},
+        "source_id": p.source_id,
     }
 
     logger.debug(
-        f"Individual state initialised — {len(persona['demographics'])} demographic fields, "
-        f"{len(INDIVIDUAL_QUESTIONS)} questions"
+        f"Individual state initialised — {len(ind_persona['demographics'])} demographic fields, "
+        f"{len(q)} questions, source_id={p.source_id}"
     )
     return state
 

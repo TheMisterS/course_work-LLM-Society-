@@ -1,0 +1,6 @@
+question,compared_cells,valid_batch_cells,missing_count,invalid_count,exact_matches,exact_match_rate
+freehms,1080,1094,0,0,69,0.06388888888888888
+gincdif,1085,1094,0,0,323,0.2976958525345622
+happy,1092,1094,0,0,204,0.18681318681318682
+stflife,1074,1094,0,0,209,0.1945996275605214
+trstprl,1085,1094,0,0,169,0.15576036866359447
