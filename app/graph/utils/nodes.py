@@ -23,7 +23,7 @@ from graph.chain_factory import create_agent_chain
 import logging
 logger = logging.getLogger(__name__)
 
-class SocietyNodes:
+class Nodes:
 
     def supervisor(self, state: GraphState):
         logger.debug("***IN SUPERVISOR NODE***")

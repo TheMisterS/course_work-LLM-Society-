@@ -113,7 +113,7 @@ def build_graph():
     logger.debug(f"Long memory feature enabled: {LONG_MEMORY_ENABLED}")
     
     workflow = StateGraph(GraphState)
-    nodes = SocietyNodes()
+    nodes = Nodes()
     
     #Nodes
     workflow.add_node("supervisor", nodes.supervisor)
