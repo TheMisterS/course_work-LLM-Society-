@@ -112,7 +112,7 @@ def export_state_to_json(results, subsession_folder_path):
         serializable_state["agents"][agent_name] = {
             "name": agent_state.get("name", agent_name),
             "role_desc": agent_state.get("role_desc", ""),
-            "traits": agent_state.get("traits", {}),
+            "keypoints": agent_state.get("keypoints", []),
             "long_mem": agent_state.get("long_mem", []),
             "short_mem": agent_state.get("short_mem", []),
             "agent_agenda": agent_state.get("agent_agenda", {})

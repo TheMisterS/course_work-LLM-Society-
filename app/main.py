@@ -3,8 +3,11 @@ import logging
 from logger import setup_logger
 from utils.result_formatting import format_results, save_graph_image, export_state_to_json
 from utils.config_formatting import save_configuration_snapshot
-# TEMP/TEST imports
-from graph.society_graph_factory import build_graph, initialize_state
+from rag import build_persona_context
+
+from configs.simulation_config import DEBATE_TOPIC
+# TEMP DISCUSSION IMPORTS
+from graph.graph_factory import build_graph, initialize_state
 from graph.utils.prompts import generate_debate_system_prompt, generate_debate_user_prompt
 from IPython.display import Image, display
 
@@ -20,29 +23,23 @@ if __name__ == "__main__":
 
     setup_logger()
     logger = logging.getLogger(__name__)
+    
+#   Main application entry point
+    logger.info("Starting the LLM Society application")
 
-    if args.mode == "individual":
-        logger.info("Starting in INDIVIDUAL mode")
-        from graph.individual_graph_factory import build_individual_graph, initialize_individual_state
+    personas = build_persona_context(DEBATE_TOPIC)
 
-        state = initialize_individual_state()
-        graph = build_individual_graph()
-        result = graph.invoke(state, {"recursion_limit": 200})
+    for p in personas:
+        logger.info("[personas] %s | keypoints: %s", p["name"], p["keypoints"])
 
-    else:
-        logger.info("Starting in SOCIETY mode")
-        from graph.society_graph_factory import build_graph, initialize_state
+    state = initialize_state(personas=personas)
+    graph = build_graph()
+    
+    save_graph_image(graph, filename="graph.png")
 
-        state = initialize_state()
-        graph = build_graph()
-        result = graph.invoke(state, {"recursion_limit": 100})
-
-        # subsession_path = format_results(result)
-        # export_state_to_json(result, subsession_path)
-        # save_configuration_snapshot(subsession_path)
+    result = graph.invoke(state, {"recursion_limit": 100})
 
     print(result)
-    
 
     # TESTING
 

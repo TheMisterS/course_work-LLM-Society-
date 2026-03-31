@@ -1,9 +1,9 @@
 import logging
 import colorlog
 
-from configs.system_config import LOG_FILE
+from configs.system_config import LOG_FILE, LOG_LEVEL
 
-def setup_logger(log_level=logging.DEBUG, log_file=LOG_FILE):
+def setup_logger(log_level=LOG_LEVEL, log_file=LOG_FILE):
     """Configure root logger."""
 
     # colored formatter for console

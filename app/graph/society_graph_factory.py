@@ -1,7 +1,7 @@
 from langgraph.graph import StateGraph, END, START
 
 from configs.agent_config import AGENT_PROFILES
-from configs.models_config import MODEL_PROFILES
+from configs.models_config import MODEL_PROFILES, configure_model
 from configs.simulation_config import (
     DEBATE_TOPIC, 
     VOTING_OPTIONS, 
@@ -10,8 +10,7 @@ from configs.simulation_config import (
     LONG_MEMORY_UPDATE_INTERVAL
 )
 from graph.utils.state import AgentState, GraphState
-from graph.chain_factory import configure_model
-from graph.utils.society_nodes import SocietyNodes
+from graph.utils.nodes import Nodes
 
 import logging
 logger = logging.getLogger(__name__)
@@ -53,25 +52,41 @@ def route_after_update_memory(state: GraphState) -> str:
     return "supervisor"
 
 # main functions
-def initialize_state():
+def initialize_state(personas=None):
     """
     Initialize the graph state with agents, models, and default values.
+
+    Args:
+        personas: Optional List[GeneratedPersona] from the RAG pipeline. Each
+                  stakeholder becomes one agent. Falls back to static AGENT_PROFILES when None or empty.
     """
     state = GraphState()
     state["agents"] = {}
     state["models"] = {}
 
-    # Initialize agents
-    for agent_name, profile in AGENT_PROFILES.items():
-        agent_state = AgentState(
-            name=agent_name,
-            role_desc=profile["role_desc"],
-            traits=profile["traits"],
-            long_mem=[],
-            short_mem=[],
-            agent_agenda={"debate_topic": DEBATE_TOPIC}
-        )
-        state["agents"][agent_name] = agent_state
+    # Build agent list - RAG personas take priority, AGENT_PROFILES forfallback
+    if personas:
+        for persona in personas:
+            agent_state = AgentState(
+                name=persona["name"],
+                role_desc=persona["role_desc"],
+                keypoints=persona["keypoints"],
+                long_mem=[],
+                short_mem=[],
+                agent_agenda={"debate_topic": DEBATE_TOPIC}
+            )
+            state["agents"][persona["name"]] = agent_state
+    else:
+        for agent_name, profile in AGENT_PROFILES.items():
+            agent_state = AgentState(
+                name=agent_name,
+                role_desc=profile["role_desc"],
+                keypoints=profile["keypoints"],
+                long_mem=[],
+                short_mem=[],
+                agent_agenda={"debate_topic": DEBATE_TOPIC}
+            )
+            state["agents"][agent_name] = agent_state
 
     # Initialize models
     for model_number, profile in MODEL_PROFILES.items():

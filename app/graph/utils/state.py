@@ -13,7 +13,7 @@ class Msg(TypedDict):
 class AgentState(TypedDict):
     name: str
     role_desc: str
-    traits: Dict[str, str]
+    keypoints: List[str]
     long_mem: List[str]
     short_mem: List[Msg]
     agent_agenda: Dict[str, str]

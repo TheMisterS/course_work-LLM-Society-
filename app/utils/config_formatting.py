@@ -67,8 +67,8 @@ def format_agent_config() -> str:
         lines.append(f"Agent: {agent_name}")
         lines.append("-" * 40)
         lines.append(f"  Role: {profile.get('role_desc', 'N/A')}")
-        for trait, desc in profile.get('traits', {}).items():
-            lines.append(f"  Trait - {trait}: {desc}")
+        for kp in profile.get('keypoints', []):
+            lines.append(f"  - {kp}")
         
         lines.append("")
     

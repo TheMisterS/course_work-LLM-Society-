@@ -1,0 +1,35 @@
+"""
+Shared LLM utilities for the RAG persona creation pipeline.
+"""
+import json
+import logging
+import re
+
+from langchain_core.messages import SystemMessage, HumanMessage
+
+from configs.models_config import MODEL_PROFILES, configure_model
+
+logger = logging.getLogger(__name__)
+
+
+def build_llm():
+    """Instantiate the RAG LLM from the RAG model profile."""
+    return configure_model(MODEL_PROFILES["rag"])
+
+
+def call_llm(llm, system_message: str, user_message: str) -> str:
+    """Send a system + user message pair and return the response text."""
+    messages = [
+        SystemMessage(content=system_message),
+        HumanMessage(content=user_message),
+    ]
+    return llm.invoke(messages).content
+
+
+def parse_json_list(text: str) -> list:
+    """Strip markdown fences and parse a JSON array from an LLM response."""
+    text = re.sub(r"```(?:json)?\s*", "", text).strip().rstrip("`").strip()
+    result = json.loads(text)
+    if not isinstance(result, list):
+        raise ValueError(f"Expected a JSON array, got {type(result).__name__}")
+    return result

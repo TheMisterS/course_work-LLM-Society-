@@ -113,13 +113,14 @@ def generate_debate_system_prompt(agent: AgentState) -> str:
     # transcript_slice will work as the conversation history/ short term memory
     # Agent should have some sort of function to do long term memory summarization
 
-    if agent['traits']:
-        traits_desc = "\n".join([f"{k}: {v}" for k,v in agent['traits'].items()])
+    keypoints_desc = ""
+    if agent.get('keypoints'):
+        keypoints_desc = "Key beliefs:\n" + "\n".join(f"- {kp}" for kp in agent['keypoints']) + "\n\n"
 
     return (
         f"You are {agent['name']} in a small group discussion.\n"
-        f"Your role: {agent['role_desc']}.\n"
-        f"{traits_desc}\n\n"
+        f"Your role: {agent['role_desc']}.\n\n"
+        f"{keypoints_desc}"
         "Speak naturally and conversationally, as if you are interacting live with a group of peers.\n\n"
         "- Use short, casual sentences.\n"
         "- Let your tone be informal and relatable—these are your friends or colleagues.\n"
@@ -186,13 +187,12 @@ def generate_debate_user_prompt(agent: AgentState) -> str:
 def generate_voting_system_prompt(agent: AgentState) -> str:
     prompt = f"You are {agent['name']}. Your role is: {agent['role_desc']}.\n\n"
     
-    if agent['traits']:
-        traits_desc = "\n".join([f"{k}: {v}" for k,v in agent['traits'].items()])
-        prompt += f"Traits:\n{traits_desc}\n\n"
-    
+    if agent.get('keypoints'):
+        prompt += "Key beliefs:\n" + "\n".join(f"- {kp}" for kp in agent['keypoints']) + "\n\n"
+
     prompt += """VOTING GUIDELINES:
     - Review the debate that has taken place
-    - Consider your character's values, traits, and perspective
+    - Consider your character's values and perspective
     - Make a decision that aligns with your established character
     - Provide a brief justification for your vote (1-2 sentences)
     
