@@ -19,7 +19,7 @@ def print_search_results(search_results: list[dict], preview_count: int = 3) -> 
         print("  " + "-" * 40)
 
 
-TEST_TOPIC = "Building a bridge over the Neris river in Vilnius"
+TEST_TOPIC = "Legalizing same-sex civil partnerships in Lithuania"
 
 # ----------------------------------------------------------------------------
 #  RAG Pipeline Smoke Tests
@@ -80,15 +80,48 @@ TEST_TOPIC = "Building a bridge over the Neris river in Vilnius"
 # for viewpoint in deduplicated_viewpoints:
 #     print(f"  - {viewpoint['source_name']} [{viewpoint['stance']}]")
 
-# ----------------------------------------------------------------------------
-#  Step 5: full pipeline
-# ----------------------------------------------------------------------------
+# Step 5: stance_selector
+# from rag.deduplicator import deduplicate
+# from rag.extractor import extract_viewpoints
+# from rag.query_planner import plan_queries
+# from rag.search_tool import execute_queries
+# from rag.stance_selector import select_by_stance
 
+# # previous steps
+# planned_queries = plan_queries(TEST_TOPIC, query_count=5)
+# search_results = execute_queries(planned_queries)
+# extracted_viewpoints, _ = extract_viewpoints(TEST_TOPIC, search_results)
+# deduplicated_viewpoints = deduplicate(TEST_TOPIC, extracted_viewpoints)
+
+# selected = select_by_stance(deduplicated_viewpoints)
+# print(f"\n[stance_selector] {len(selected)} viewpoints selected")
+# for vp in selected:
+#     print(f"  - {vp['source_name']} [{vp['stance']}]")
+
+# Step 6: background_fetcher
+# from rag.background_fetcher import fetch_backgrounds
+
+# enriched = fetch_backgrounds(selected)
+# for vp in enriched:
+#     print(f"  - {vp['source_name']}: {vp.get('_enrichment_raw', '')[:80]}")
+
+# Step 7: persona_synthesis
+# from rag.persona_synthesis import synthesize_personas
+
+# personas = synthesize_personas(TEST_TOPIC, enriched)
+# for p in personas:
+#     print(f"\n  [{p['name']} / {p['affiliation']}] {p['stance']}")
+#     print(f"  role_desc:  {p['role_desc']}")
+#     print(f"  background: {p['background']}")
+
+#  Step 8: full pipeline
 from rag import build_persona_context
 
 personas = build_persona_context(TEST_TOPIC)
 print(f"\n[pipeline] {len(personas)} personas created")
 for p in personas:
-    print(f"\n  [{p['name']}]")
+    print(f"\n  [{p['name']} / {p['affiliation']}] {p['stance']}")
+    print(f"  role_desc:  {p['role_desc']}")
+    print(f"  background: {p['background']}")
     for kp in p["keypoints"]:
         print(f"    - {kp}")

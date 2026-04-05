@@ -26,10 +26,22 @@ def call_llm(llm, system_message: str, user_message: str) -> str:
     return llm.invoke(messages).content
 
 
+def strip_json_fences(text: str) -> str:
+    """Strip markdown code fences (```json ... ``` or ``` ... ```) from an LLM response."""
+    return re.sub(r"```(?:json)?\s*", "", text).strip().rstrip("`").strip()
+
+
 def parse_json_list(text: str) -> list:
     """Strip markdown fences and parse a JSON array from an LLM response."""
-    text = re.sub(r"```(?:json)?\s*", "", text).strip().rstrip("`").strip()
-    result = json.loads(text)
+    result = json.loads(strip_json_fences(text))
     if not isinstance(result, list):
         raise ValueError(f"Expected a JSON array, got {type(result).__name__}")
+    return result
+
+
+def parse_json_object(text: str) -> dict:
+    """Strip markdown fences and parse a JSON object from an LLM response."""
+    result = json.loads(strip_json_fences(text))
+    if not isinstance(result, dict):
+        raise ValueError(f"Expected a JSON object, got {type(result).__name__}")
     return result

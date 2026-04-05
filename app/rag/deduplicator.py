@@ -1,13 +1,13 @@
 """
-RAG deduplicator — Step 4 of the persona persona creation pipeline.
+RAG deduplicator - Step 4 of the persona persona creation pipeline.
 
 Takes the raw list of Viewpoint objects extracted across all iterations
 and removes duplicates in two phases:
 
-  Phase A — rule-based: normalise source names and merge entries that
+  Phase A - rule-based: normalise source names and merge entries that
              resolve to the same key.
              
-  Phase B — LLM-based (optional, RAG_DEDUP_USE_LLM=true): semantic pass
+  Phase B - LLM-based (optional, RAG_DEDUP_USE_LLM=true): semantic pass
              that catches same-entity entries with differing name forms.
 """
 import json

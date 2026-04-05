@@ -7,33 +7,47 @@ logger = logging.getLogger(__name__)
 
 from utils.time_and_dates import date_stamp, date_time_stamp
 
-def format_results(results, base_result_directory="results"):
+def create_subsession_folder(base_result_directory: str = "results") -> str:
     """
-    Creates a sessions & subsessions folder structure to store conversation logs, supervisor notes, votes, and long-term memory summaries.
+    Create the session_*/subsession_* folder structure and return the subsession path.
 
     Args:
-        base_directory: The base directory where the folder will be created
+        base_result_directory: Root results directory (default: "results").
 
     Returns:
-        subsession_folder_path: The path to the created subsession folder
+        subsession_folder_path: Path to the newly created subsession folder.
     """
+    os.makedirs(base_result_directory, exist_ok=True)
 
-    if not os.path.exists(base_result_directory):
-        logger.warning(f"Base result directory {base_result_directory} does not exist. Creating it.")
-        os.makedirs(base_result_directory)
-
-    current_date_stamp = date_stamp()
-    current_time_stamp = date_time_stamp()
-
-    # Create session folder
-    session_folder_name = f"session_{current_date_stamp}"
-    session_folder_path = os.path.join(base_result_directory, session_folder_name)
+    session_folder_path = os.path.join(base_result_directory, f"session_{date_stamp()}")
     os.makedirs(session_folder_path, exist_ok=True)
 
-    # Create subsession folder
-    subsession_folder_name = f"subsession_{current_time_stamp}"
-    subsession_folder_path = os.path.join(session_folder_path, subsession_folder_name)
+    subsession_folder_path = os.path.join(session_folder_path, f"subsession_{date_time_stamp()}")
     os.makedirs(subsession_folder_path, exist_ok=True)
+
+    return subsession_folder_path
+
+
+def format_results(results, base_result_directory="results", subsession_path=None):
+    """
+    Store conversation logs, supervisor notes, votes, and long-term memory summaries.
+
+    Args:
+        results: The final graph state dict.
+        base_result_directory: Root results directory, used only when subsession_path is None.
+        subsession_path: Pre-created subsession folder path. If provided, folder creation is
+            skipped and files are written directly into this path.
+
+    Returns:
+        subsession_folder_path: The path to the subsession folder used.
+    """
+
+    if subsession_path is not None:
+        subsession_folder_path = subsession_path
+    else:
+        subsession_folder_path = create_subsession_folder(base_result_directory)
+
+    current_time_stamp = date_time_stamp()
 
     # Define file paths/names for logs
     conversation_file = os.path.join(subsession_folder_path, f"conversations_{current_time_stamp}.txt")
