@@ -17,16 +17,12 @@ OLLAMA_URL          = os.environ.get("OLLAMA_URL", "http://localhost:11434")
 OPENROUTER_API_KEY  = os.environ.get("OPENROUTER_API_KEY", "")
 OPENROUTER_BASE_URL = os.environ.get("OPENROUTER_BASE_URL", "https://openrouter.ai/api/v1")
 
-def _int_or_none(key: str) -> int | None:
-    v = os.environ.get(key)
-    return int(v) if v is not None else None
-
 MODEL_PROFILES = {
     # --- Discussion models ---
     "model_1": {
         "provider":       os.environ.get("MODEL_1_PROVIDER", "ollama"),  # ollama | openrouter
         "model":          os.environ.get("MODEL_1_MODEL", "llama3.1:8b"),
-        "temperature":    float(os.environ.get("MODEL_1_TEMPERATURE", 0.9)),
+        "temperature":    float(os.environ.get("MODEL_1_TEMPERATURE", 0.7)),
         # Ollama-specific
         "top_p":          float(os.environ.get("MODEL_1_TOP_P", 0.9)),
         "top_k":          int(os.environ.get("MODEL_1_TOP_K", 40)),
@@ -34,14 +30,14 @@ MODEL_PROFILES = {
         "num_predict":    int(os.environ.get("MODEL_1_NUM_PREDICT", -1)),
         "repeat_penalty": float(os.environ.get("MODEL_1_REPEAT_PENALTY", 1.1)),
         # OpenRouter-specific
-        "max_tokens":     int(os.environ.get("MODEL_1_MAX_TOKENS", 2048)),
+        "max_tokens":     int(os.environ.get("MODEL_1_MAX_TOKENS", 4096)),
     },
     # --- RAG pipeline model ---
     "rag": {
         "provider":    os.environ.get("RAG_MODEL_PROVIDER", "openrouter"),  # ollama | openrouter
         "model":       os.environ.get("RAG_MODEL", "openai/gpt-4o-mini"),
         "temperature": float(os.environ.get("RAG_MODEL_TEMPERATURE", 0.1)),
-        "max_tokens":  int(os.environ.get("RAG_MODEL_MAX_TOKENS", 2048)),
+        "max_tokens":  int(os.environ.get("RAG_MODEL_MAX_TOKENS", 4096)),
     },
 }
 

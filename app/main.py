@@ -12,15 +12,6 @@ from graph.utils.prompts import generate_debate_system_prompt, generate_debate_u
 from IPython.display import Image, display
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="LLM Society simulation")
-    parser.add_argument(
-        "--mode",
-        choices=["society", "individual"],
-        default="society",
-        help="Run mode: 'society' (group debate) or 'individual' (single persona interview)",
-    )
-    args = parser.parse_args()
-
     setup_logger()
     logger = logging.getLogger(__name__)
     
@@ -43,7 +34,7 @@ if __name__ == "__main__":
 
     format_results(result, subsession_path=subsession_path)
     export_state_to_json(result, subsession_path)
-    save_configuration_snapshot(subsession_path)
+    save_configuration_snapshot(subsession_path, personas=personas)
 
     # TESTING
 

@@ -23,6 +23,7 @@ from rag.query_planner import plan_queries
 from rag.search_tool import execute_queries
 from rag.stance_selector import select_by_stance
 from rag.state import GeneratedPersona, Viewpoint
+from rag.rag_logger import RagRunLogger
 
 logger = logging.getLogger(__name__)
 
@@ -40,7 +41,6 @@ def build_persona_context(topic: str, output_dir: str | None = None) -> List[Gen
 
     rag_log = None
     if output_dir:
-        from rag.rag_logger import RagRunLogger
         rag_log = RagRunLogger(output_dir)
 
     all_viewpoints: List[Viewpoint] = []

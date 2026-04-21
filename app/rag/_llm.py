@@ -3,7 +3,6 @@ Shared LLM utilities for the RAG persona creation pipeline.
 """
 import json
 import logging
-import re
 
 from langchain_core.messages import SystemMessage, HumanMessage
 
@@ -28,12 +27,31 @@ def call_llm(llm, system_message: str, user_message: str) -> str:
 
 def strip_json_fences(text: str) -> str:
     """Strip markdown code fences (```json ... ``` or ``` ... ```) from an LLM response."""
-    return re.sub(r"```(?:json)?\s*", "", text).strip().rstrip("`").strip()
+    cleaned = text.strip()
+
+    # Fast path for unfenced output.
+    if not cleaned.startswith("```"):
+        return cleaned
+
+    lines = cleaned.splitlines()
+
+    if not lines:
+        return cleaned
+
+    opening_fence = lines[0].strip().lower()
+    if opening_fence in {"```", "```json"}:
+        lines = lines[1:]
+
+    if lines and lines[-1].strip() == "```":
+        lines = lines[:-1]
+
+    return "\n".join(lines).strip()
 
 
 def parse_json_list(text: str) -> list:
     """Strip markdown fences and parse a JSON array from an LLM response."""
     result = json.loads(strip_json_fences(text))
+    
     if not isinstance(result, list):
         raise ValueError(f"Expected a JSON array, got {type(result).__name__}")
     return result
@@ -42,6 +60,7 @@ def parse_json_list(text: str) -> list:
 def parse_json_object(text: str) -> dict:
     """Strip markdown fences and parse a JSON object from an LLM response."""
     result = json.loads(strip_json_fences(text))
+    
     if not isinstance(result, dict):
         raise ValueError(f"Expected a JSON object, got {type(result).__name__}")
     return result
