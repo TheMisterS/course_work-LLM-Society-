@@ -68,7 +68,6 @@ class Nodes:
             "system_message": current_sys_prompt,
             "user_message": current_user_prompt
         })
-        print(response)
 
         message = Msg(
             role="agent",
@@ -87,7 +86,7 @@ class Nodes:
         # not good practise to update state directly, but left as is for PoC
 
         for agent in state["agents"].values():
-            if len(agent["short_mem"]) > MEMORY_WINDOW_SIZE: # limit short term memory (WIP, adjust via constant later)
+            if len(agent["short_mem"]) >= MEMORY_WINDOW_SIZE: # limit short term memory (WIP, adjust via constant later)
                 agent["short_mem"].pop(0)
             agent["short_mem"].append(last_message)
 
@@ -183,9 +182,6 @@ class Nodes:
             })
             
             votes[agent_name] = response
-            
-            print(response)
-            print("----------------------------------------------------\n")
         
         logger.debug("Vote phase complete.")
         return {"votes": votes, "phase": "END"}

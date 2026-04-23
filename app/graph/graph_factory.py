@@ -20,9 +20,6 @@ def route_after_supervisor(state: GraphState) -> str:
     """
     Determine the next node after the supervisor based on the current phase.
     """
-
-    if state["phase"] == "role_shift":
-        return "role_shift"
     if state["phase"] == "vote":
         return "vote"
     return "agent_speak"
