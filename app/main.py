@@ -8,8 +8,6 @@ from rag import build_persona_context
 from configs.simulation_config import DEBATE_TOPIC
 # TEMP DISCUSSION IMPORTS
 from graph.graph_factory import build_graph, initialize_state
-from graph.utils.prompts import generate_debate_system_prompt, generate_debate_user_prompt
-from IPython.display import Image, display
 
 if __name__ == "__main__":
     setup_logger()
@@ -35,20 +33,3 @@ if __name__ == "__main__":
     format_results(result, subsession_path=subsession_path)
     export_state_to_json(result, subsession_path)
     save_configuration_snapshot(subsession_path, personas=personas)
-
-    # TESTING
-
-    # # Test state initialization
-    # state = initialize_state()
-    # print(state)
-
-    # # Test debate prompt building
-    # state = initialize_state()
-    # for agent_name, agent_state in state["agents"].items():
-    #     sys_prompt = generate_debate_system_prompt(agent_state)
-    #     user_prompt = generate_debate_user_prompt(agent_state)
-    #     print(f"System Prompt for {agent_name}:\n{sys_prompt}\n")
-    #     print("----------------------------------------------------\n")
-    #     print(f"User Prompt for {agent_name}:\n{user_prompt}\n")
-    #     print("----------------------------------------------------\n")
-

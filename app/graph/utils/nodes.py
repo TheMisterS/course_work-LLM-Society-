@@ -154,12 +154,6 @@ class Nodes:
         return {"agents": state["agents"]}
 
 
-
-    #Route after agent interaction, either end or to tick to increment round
-    def router(self, state: GraphState) -> str:
-        logger.debug("***IN ROUTER NODE***")
-        ...
-
     def vote(self, state: GraphState) -> Dict[str, Any]:
         # Voting node is designed so that each agent votes, thus all of the agents are invoked here
         logger.debug("***IN VOTE NODE***")
