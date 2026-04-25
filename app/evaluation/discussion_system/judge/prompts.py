@@ -155,11 +155,17 @@ def format_agent_profiles(state: DebateState) -> str:
     return "\n\n".join(profiles)
 
 
-def format_votes(state: DebateState) -> str:
-    """Format all votes for the prompt."""
+def format_votes(state: DebateState, round: str = "final") -> str:
+    """Format votes for a given round (defaults to final)"""
+    
+    round_votes = state.votes.get(round, {})
     lines = []
-    for agent_name, vote in state.votes.items():
-        lines.append(f"**{agent_name}**: {vote}")
+    
+    for agent_name, v in round_votes.items():
+        vote_str = v.get("vote", "") if isinstance(v, dict) else v
+        reason_str = v.get("reason", "") if isinstance(v, dict) else ""
+        lines.append(f"**{agent_name}**: {vote_str} — {reason_str}")
+        
     return "\n\n".join(lines)
 
 

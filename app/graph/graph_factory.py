@@ -24,6 +24,15 @@ def route_after_supervisor(state: GraphState) -> str:
         return "vote"
     return "agent_speak"
 
+def route_after_vote(state: GraphState) -> str:
+    """
+    After a vote, go to END when final vote finishes
+    """
+    
+    if "final" in state.get("votes", {}):
+        return "END"
+    return "supervisor"
+
 def route_after_update_memory(state: GraphState) -> str:
     """
     Determine the next node after update_memory based on the current phase
@@ -98,6 +107,7 @@ def initialize_state(personas=None):
     state["votes"] = {}
     state["voting_question"] = VOTING_QUESTION
     state["voting_options"] = VOTING_OPTIONS
+    state["current_vote_label"] = None
 
     return state
 
@@ -148,7 +158,12 @@ def build_graph():
             "END": END,
             "supervisor": "supervisor"
         })
-    workflow.add_edge("vote", END)
+        
+    workflow.add_conditional_edges("vote", route_after_vote, {
+                                    "END": END,
+                                    "supervisor": "supervisor"
+                                    }
+                                   )
 
     ...
     graph = workflow.compile()

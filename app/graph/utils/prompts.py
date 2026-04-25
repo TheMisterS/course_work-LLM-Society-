@@ -203,18 +203,27 @@ def generate_voting_system_prompt(agent: AgentState) -> str:
     return prompt
 
 
-def generate_voting_user_prompt(agent: AgentState, voting_question: str, options: List[str]) -> str:
+def generate_voting_user_prompt(agent: AgentState, voting_question: str, options: List[str], prior_vote: dict = None) -> str:
     # Include debate summary from long_mem for now, perhaps entertain other approaches later
     recent_msgs = agent['short_mem']
-    
+
     debate_summary = "\n".join([
         f"- [{getattr(m, 'name', 'Unknown')}]: {getattr(m, 'content', str(m))}"
         for m in recent_msgs
     ])
-    
-    # Get long-term memory section for full context
+
+    # get long-term memory section for full context
     long_memory_section = format_long_memory_section(agent)
-    
+
+    # remind the agent of their previous vote so they can reflect on whether the debate changed their view
+    prior_vote_section = ""
+    if prior_vote:
+        prior_vote_section = (
+            f"\nYour previous vote: {prior_vote['vote']}\n"
+            f"Your previous reasoning: {prior_vote['reason']}\n"
+            f"Has the debate changed your view? You may keep or update your vote.\n"
+        )
+
     prompt = f"""Question: {voting_question}
 
     Available options:
@@ -222,10 +231,10 @@ def generate_voting_user_prompt(agent: AgentState, voting_question: str, options
 
     Long term memory:
     {long_memory_section}
-    
+
     Recent conversation summary (most recent messages):
     {debate_summary}
-
+    {prior_vote_section}
     Based on the debate and your character, cast your vote."""
-    
+
     return prompt

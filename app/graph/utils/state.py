@@ -1,4 +1,4 @@
-from typing import TypedDict, List, Dict, Literal, Optional
+from typing import TypedDict, List, Dict, Literal, Optional, Any
 from langchain_community.chat_models import ChatOllama
 
 from langgraph.graph import add_messages
@@ -28,9 +28,12 @@ class GraphState(TypedDict):
     agenda: Dict[str, str]
     models: Dict[str, ChatOllama]
     next_speaker: Optional[str]
-    votes: Dict[str, str]  # agent_name -> vote_choice
-    voting_options: List[str]  # Available options to vote on
-    voting_question: str  # The question being voted on
+    # {"initial": {agent: {"vote": str, "reason": str}}, "mid": {...}, "final": {...}}`
+    votes: Dict[str, Any]
+    voting_options: List[str]
+    voting_question: str
+    # set by supervisor before entering vote node so the node knows which round to write under -> initial/mid/final
+    current_vote_label: Optional[str]
 
 class IndividualPersona(TypedDict):
     demographics: Dict[str, str]  # e.g. age, gender, education, occupation ...

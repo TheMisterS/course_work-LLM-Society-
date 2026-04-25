@@ -3,7 +3,7 @@ Pydantic data models for the Judge system.
 Evaluates the whole conversation, not per-agent.
 """
 
-from typing import Optional
+from typing import Any, Optional
 from pydantic import BaseModel, Field
 
 
@@ -32,25 +32,26 @@ class DebateState(BaseModel):
     """Parsed debate state from JSON file."""
     messages: list[Message]
     agents: dict[str, AgentData]
-    votes: dict[str, str]
+    # {"initial": {agent: {"vote": str, "reason": str}}, "mid": {...}, "final": {...}}`
+    votes: dict[str, Any]
     voting_options: list[str]
     voting_question: str
     agenda: dict
     round: int
     phase: str
-    
+
     @property
     def debate_topic(self) -> str:
         """Extract debate topic from agenda."""
         return self.agenda.get("debate_topic", "Unknown topic")
-    
+
     def get_agent_messages(self, agent_name: str) -> list[Message]:
         """Get all messages from a specific agent."""
         return [m for m in self.messages if m.name == agent_name]
-    
-    def get_agent_vote(self, agent_name: str) -> Optional[str]:
-        """Get the vote of a specific agent."""
-        return self.votes.get(agent_name)
+
+    def get_agent_vote(self, agent_name: str, round: str = "final") -> Optional[dict]:
+        """Get the vote dict {vote, reason} of a specific agent for a given round."""
+        return self.votes.get(round, {}).get(agent_name)
 
 
 # =============================================================================

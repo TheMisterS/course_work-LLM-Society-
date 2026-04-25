@@ -72,9 +72,14 @@ def format_results(results, base_result_directory="results", subsession_path=Non
 
     # Votes Log
     with open(votes_file, "w", encoding="utf-8") as f:
-        for agent_name, vote in results.get("votes", {}).items():
-            f.write(f"[{agent_name}]: {vote}\n")
-            f.write("-" * 80 + "\n")
+        for round_label, round_votes in results.get("votes", {}).items():
+            f.write(f"=== {round_label.upper()} VOTE ===\n")
+            for agent_name, v in round_votes.items():
+                f.write(f"[{agent_name}]\n")
+                f.write(f"VOTE: {v.get('vote', '')}\n")
+                f.write(f"REASON: {v.get('reason', '')}\n")
+                f.write("-" * 80 + "\n")
+            f.write("\n")
 
     # Long-Term Memory Log
     with open(long_term_memory_file, "w", encoding="utf-8") as f:

@@ -23,6 +23,27 @@ from graph.chain_factory import create_agent_chain
 import logging
 logger = logging.getLogger(__name__)
 
+
+def _parse_vote_response(response: str) -> tuple[str, str]:
+    """parse the VOTE and REASON values from voting- fall back to the raw response"""
+    
+    vote_choice = ""
+    reason = ""
+
+    for line in response.splitlines():
+        stripped = line.strip()
+        if stripped.upper().startswith("VOTE:"):
+            vote_choice = stripped[len("VOTE:"):].strip()
+        elif stripped.upper().startswith("REASON:"):
+            reason = stripped[len("REASON:"):].strip()
+
+    # if parsing failed, store the raw response
+    if not vote_choice:
+        vote_choice = response.strip()
+
+    return vote_choice, reason
+
+
 class Nodes:
 
     def supervisor(self, state: GraphState):
@@ -33,11 +54,25 @@ class Nodes:
         current_round = state["round"] + 1
         logger.debug(f"Incrementing round from {state['round']} to {current_round}")
         
-        # Check if we should transition to voting phase
-        if current_round > DEBATE_ROUND_COUNT and state["phase"] == "debate":
-            logger.debug("Debate rounds complete. Transitioning to vote phase.")
-            supervisor_notes.append(f"Debate complete after {current_round - 1} rounds. Moving to voting phase.")
-            return {"supervisor_notes": supervisor_notes, "phase": "vote", "round": current_round}
+        votes = state.get("votes", {})
+
+        # initial vote before any agent speaks
+        if current_round == 1 and "initial" not in votes:
+            logger.debug("Triggering initial vote before debate starts.")
+            supervisor_notes.append("Triggering initial vote (round 0).")
+            return {"supervisor_notes": supervisor_notes, "phase": "vote", "round": current_round, "current_vote_label": "initial"}
+
+        # mid-debate vote at the halfway point
+        if current_round == DEBATE_ROUND_COUNT // 2 and "mid" not in votes:
+            logger.debug(f"Triggering mid-debate vote at round {current_round}.")
+            supervisor_notes.append(f"Triggering mid-debate vote at round {current_round}.")
+            return {"supervisor_notes": supervisor_notes, "phase": "vote", "round": current_round, "current_vote_label": "mid"}
+
+        # final vote after all debate rounds
+        if current_round > DEBATE_ROUND_COUNT and "final" not in votes:
+            logger.debug("Debate rounds complete. Transitioning to final vote.")
+            supervisor_notes.append(f"Debate complete after {current_round - 1} rounds. Moving to final vote.")
+            return {"supervisor_notes": supervisor_notes, "phase": "vote", "round": current_round, "current_vote_label": "final"}
 
         speakers_length = len(state["agents"])
 
@@ -155,30 +190,44 @@ class Nodes:
 
 
     def vote(self, state: GraphState) -> Dict[str, Any]:
-        # Voting node is designed so that each agent votes, thus all of the agents are invoked here
+        # voting node invokes every agent so they all cast their vote in one pass
         logger.debug("***IN VOTE NODE***")
-        
+
+        vote_label = state.get("current_vote_label", "final")
         voting_options = state["voting_options"]
         voting_question = state["voting_question"]
-        votes = {}
-        
+        all_votes = dict(state.get("votes", {}))
+        round_votes = {}
+
         for agent_name, agent_state in state["agents"].items():
-            
+            # for mid/final votes, pass back what this agent voted previously so they can reflect on it
+            prior_vote = None
+            if vote_label == "mid" and "initial" in all_votes:
+                prior_vote = all_votes["initial"].get(agent_name)
+            elif vote_label == "final" and "mid" in all_votes:
+                prior_vote = all_votes["mid"].get(agent_name)
+            elif vote_label == "final" and "initial" in all_votes:
+                prior_vote = all_votes["initial"].get(agent_name)
+
             current_sys_prompt = generate_voting_system_prompt(agent_state)
-            current_user_prompt = generate_voting_user_prompt(agent_state, voting_question, voting_options)
+            current_user_prompt = generate_voting_user_prompt(agent_state, voting_question, voting_options, prior_vote)
             model = state["models"][MODEL_USED_FOR_VOTING]
-            
+
             chain = create_agent_chain(model)
-            
+
             response = chain.invoke({
                 "system_message": current_sys_prompt,
                 "user_message": current_user_prompt
             })
-            
-            votes[agent_name] = response
-        
-        logger.debug("Vote phase complete.")
-        return {"votes": votes, "phase": "END"}
+
+            vote_choice, reason = _parse_vote_response(response)
+            round_votes[agent_name] = {"vote": vote_choice, "reason": reason}
+
+        # merge this round's votes into the existing votes dict under the correct label
+        all_votes[vote_label] = round_votes
+
+        logger.debug(f"Vote phase '{vote_label}' complete.")
+        return {"votes": all_votes, "phase": "debate", "current_vote_label": None}
             
             
             
