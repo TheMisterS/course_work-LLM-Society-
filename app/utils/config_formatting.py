@@ -95,14 +95,15 @@ def format_agent_config(personas: Optional[List[Dict[str, Any]]] = None):
     
     return "\n".join(lines)
 
-def format_all_configurations(personas: Optional[List[Dict[str, Any]]] = None) -> str:
+def format_all_configurations(personas: Optional[List[Dict[str, Any]]] = None, mode: str = "rag") -> str:
     """Format all system configurations into a readable text format."""
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    
+
     sections = [
         "=" * 80,
         "SYSTEM CONFIGURATION SNAPSHOT",
         f"Generated: {timestamp}",
+        f"Mode: {mode.upper()}",
         "=" * 80,
         "",
         format_simulation_config(),
@@ -115,23 +116,24 @@ def format_all_configurations(personas: Optional[List[Dict[str, Any]]] = None) -
     
     return "\n".join(sections)
 
-def save_configuration_snapshot(subsession_path, personas: Optional[List[Dict[str, Any]]] = None):
+def save_configuration_snapshot(subsession_path, personas: Optional[List[Dict[str, Any]]] = None, mode: str = "rag"):
     """
     Save current system configuration to a timestamped file in the subsession folder.
-    
+
     Args:
         subsession_path: Path to the subsession folder where config should be saved
-        personas: Optional personas produced by the RAG pipeline. When provided,
+        personas: Optional personas produced by the pipeline. When provided,
                   these are written to the agent section.
-    
+        mode: Simulation mode ("rag" or "baseline"). Written to the snapshot header.
+
     Returns:
         str: Path to the saved configuration file
     """
     current_time_stamp = date_time_stamp()
-    
+
     filepath = os.path.join(subsession_path, f"configuration_{current_time_stamp}.txt")
 
     with open(filepath, 'w', encoding='utf-8') as f:
-        f.write(format_all_configurations(personas=personas))
+        f.write(format_all_configurations(personas=personas, mode=mode))
     
     return filepath
