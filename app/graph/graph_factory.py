@@ -21,8 +21,16 @@ def route_after_supervisor(state: GraphState) -> str:
     Determine the next node after the supervisor based on the current phase.
     """
     if state["phase"] == "vote":
+        # update memory only if long-mem hasn't run in the last round (gap >= 2), otherwise go straight to vote
+        if (state.get("current_vote_label") in ("mid", "final") and state["round"] - (state.get("last_long_mem_update_round", 0)) >= 2):
+            return "update_long_memory"
         return "vote"
     return "agent_speak"
+
+def route_after_update_long_memory(state: GraphState) -> str:
+    if state["phase"] == "vote":
+        return "vote"
+    return "supervisor"
 
 def route_after_vote(state: GraphState) -> str:
     """
@@ -39,11 +47,7 @@ def route_after_update_memory(state: GraphState) -> str:
     and whether long memory update is needed.
     """
     logger.debug("***IN ROUTE AFTER UPDATE MEMORY***")
-    
-    if state["phase"] == "END":
-        logger.debug("Routing to END: phase is END")
-        return "END"
-    
+
     # Check if long memory is enabled and if it's time to update
     if LONG_MEMORY_ENABLED:
         current_round = state["round"]
@@ -101,6 +105,7 @@ def initialize_state(personas=None):
     # Initialize other attributes
     state["round"] = 0
     state["phase"] = "debate"
+    state["last_long_mem_update_round"] = 0
     state["supervisor_notes"] = []
     state["agenda"] = {"debate_topic": DEBATE_TOPIC}
     state["messages"] = []
@@ -138,7 +143,8 @@ def build_graph():
     workflow.add_conditional_edges(
     "supervisor", route_after_supervisor, {
        "agent_speak": "agent_speak",
-       "vote": "vote"
+       "vote": "vote",
+       "update_long_memory": "update_long_memory",
       }
     )
     workflow.add_edge("agent_speak", "update_memory")
@@ -147,15 +153,16 @@ def build_graph():
     if LONG_MEMORY_ENABLED:
         logger.debug("Configuring edges with long memory routing")
         workflow.add_conditional_edges("update_memory", route_after_update_memory, {
-            "END": END,
             "supervisor": "supervisor",
             "update_long_memory": "update_long_memory"
         })
-        workflow.add_edge("update_long_memory", "supervisor")
+        workflow.add_conditional_edges("update_long_memory", route_after_update_long_memory, {
+            "vote": "vote",
+            "supervisor": "supervisor"
+        })
     else:
         logger.debug("Configuring edges without long memory routing")
         workflow.add_conditional_edges("update_memory", route_after_update_memory, {
-            "END": END,
             "supervisor": "supervisor"
         })
         

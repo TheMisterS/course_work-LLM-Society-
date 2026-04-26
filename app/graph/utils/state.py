@@ -34,6 +34,8 @@ class GraphState(TypedDict):
     voting_question: str
     # set by supervisor before entering vote node so the node knows which round to write under -> initial/mid/final
     current_vote_label: Optional[str]
+    # tracks the round when long-mem node ran last to prevent double updating during voting
+    last_long_mem_update_round: int
 
 class IndividualPersona(TypedDict):
     demographics: Dict[str, str]  # e.g. age, gender, education, occupation ...
