@@ -1,169 +1,158 @@
+import argparse
 import json
 import logging
 import sys
-from datetime import datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "shared"))
 
-from cli import parse_args
-from loader import discover_sessions, discover_subsessions
-from models import AggregatedResults, SubsessionResult
-from output import print_summary, save_csv, save_json, save_subsession_result
+from loader import discover_subsessions
 import vote_entropy
 import stance_vote_alignment
-import vote_change
+import vote_change_through_rounds
+import vote_distribution
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
 logger = logging.getLogger(__name__)
 
 
-def _compute_all_metrics(subsession_path: Path) -> dict:
-    metrics = {}
-    metrics.update(vote_entropy.compute(subsession_path))
-    metrics.update(stance_vote_alignment.compute(subsession_path))
-    metrics.update(vote_change.compute(subsession_path))
-    return metrics
-
-
-def evaluate_subsession_path(
-    subsession_path: Path,
-    results: AggregatedResults,
-    verbose: bool = True,
-) -> None:
-    
-    if verbose:
-        logger.info("evaluating subsession: %s", subsession_path.name)
-
-    try:
-        metrics = _compute_all_metrics(subsession_path)
-    except FileNotFoundError as e:
-        logger.warning("skipping %s: %s", subsession_path.name, e)
-        return
-
-    session_name = subsession_path.parent.name
-
-    result = SubsessionResult(
-        session_name=session_name,
-        subsession_name=subsession_path.name,
-        debate_topic="",
-        plane="votes",
-        metrics=metrics,
-    )
-
-    results.add(result)
-    save_subsession_result(result, subsession_path, "votes")
-
-
-def evaluate_session_path(
-    session_path: Path,
-    results: AggregatedResults,
-    verbose: bool = True,
-) -> None:
-    if verbose:
-        logger.info("processing session: %s", session_path.name)
-
-    subsessions = discover_subsessions(session_path)
-
-    if not subsessions:
-        logger.warning("no subsessions found in %s", session_path)
-        return
-
-    if verbose:
-        logger.info("found %d subsession(s)", len(subsessions))
-
-    for subsession_path in subsessions:
-        evaluate_subsession_path(subsession_path, results, verbose)
-
-
-def _cache_session_extremes(results: AggregatedResults) -> dict:
-    """track which subsession had the min/max for each numeric metric."""
+def _session_extremes(all_subsession_metrics: list[dict]) -> dict:
     extremes: dict = {}
 
-    for r in results.subsessions:
-        for key, val in r.metrics.items():
+    for entry in all_subsession_metrics:
+        session = entry["session"]
+        subsession = entry["subsession"]
+        for key, val in entry["metrics"].items():
             if not isinstance(val, (int, float)):
                 continue
 
             if key not in extremes:
                 extremes[key] = {
-                    "min": {"value": val, "session": r.session_name, "subsession": r.subsession_name},
-                    "max": {"value": val, "session": r.session_name, "subsession": r.subsession_name},
+                    "min": {"value": val, "session": session, "subsession": subsession},
+                    "max": {"value": val, "session": session, "subsession": subsession},
                 }
                 continue
 
             if val < extremes[key]["min"]["value"]:
-                extremes[key]["min"] = {"value": val, "session": r.session_name, "subsession": r.subsession_name}
+                extremes[key]["min"] = {"value": val, "session": session, "subsession": subsession}
             if val > extremes[key]["max"]["value"]:
-                extremes[key]["max"] = {"value": val, "session": r.session_name, "subsession": r.subsession_name}
+                extremes[key]["max"] = {"value": val, "session": session, "subsession": subsession}
 
     return extremes
 
 
-def _save_with_extremes(results: AggregatedResults, output_path: Path) -> None:
-    """save the normal aggregated json + attach session extremes."""
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-
-    data = results.to_dict()
-    data["session_extremes"] = _cache_session_extremes(results)
-    data["timestamp"] = datetime.now().isoformat()
-
-    with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=2, ensure_ascii=False)
-
-    logger.info("saved JSON with session extremes to: %s", output_path)
-
-
 def main() -> int:
-    args = parse_args()
-    verbose = not args.quiet
-
-    results = AggregatedResults(plane="votes")
-    
-    # check if we have multiple subsessions, if yes -> save extremes
-    is_session_run = args.session is not None or args.sessions is not None
+    parser = argparse.ArgumentParser(prog="evaluation/votes")
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument(
+        "--session",
+        type=Path,
+        metavar="PATH",
+        help="evaluate all subsessions in a session",
+    )
+    group.add_argument(
+        "--subsession",
+        type=Path,
+        metavar="PATH",
+        help="evaluate a single subsession",
+    )
+    parser.add_argument(
+        "--output", "-o",
+        type=Path,
+        default=None,
+        metavar="PATH",
+        help="output file path (default: auto-generated in the session/subsession dir)",
+    )
+    args = parser.parse_args()
 
     if args.subsession:
-        if not args.subsession.exists():
-            logger.error("subsession path does not exist: %s", args.subsession)
+        subsession_path = args.subsession
+        if not subsession_path.exists():
+            logger.error("path does not exist: %s", subsession_path)
             return 1
-        evaluate_subsession_path(args.subsession, results, verbose)
 
-    elif args.session:
-        if not args.session.exists():
-            logger.error("session path does not exist: %s", args.session)
+        try:
+            metrics = {}
+            metrics.update(vote_entropy.compute(subsession_path))
+            metrics.update(stance_vote_alignment.compute(subsession_path))
+            metrics.update(vote_change_through_rounds.compute(subsession_path))
+            metrics.update(vote_distribution.compute(subsession_path))
+        except FileNotFoundError as e:
+            logger.error("could not load state: %s", e)
             return 1
-        evaluate_session_path(args.session, results, verbose)
 
-    elif args.sessions:
-        for session_path in args.sessions:
-            if not session_path.exists():
-                logger.warning("session path does not exist: %s", session_path)
+        output_path = args.output or subsession_path / "eval" / "votes_metrics.json"
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(output_path, "w", encoding="utf-8") as f:
+            json.dump(metrics, f, indent=2, ensure_ascii=False)
+        logger.info("saved to: %s", output_path)
+        return 0
+    # --session: evaluate all subsessions
+    else:
+        session_path = args.session
+        if not session_path.exists():
+            logger.error("session path does not exist: %s", session_path)
+            return 1
+
+        subsessions = discover_subsessions(session_path)
+        if not subsessions:
+            logger.error("no subsessions found in %s", session_path)
+            return 1
+
+        logger.info("found %d subsession(s) in %s", len(subsessions), session_path.name)
+
+        all_subsession_metrics = []
+        for subsession in subsessions:
+            logger.info("evaluating subsession: %s", subsession.name)
+            try:
+                metrics = {}
+                metrics.update(vote_entropy.compute(subsession))
+                metrics.update(stance_vote_alignment.compute(subsession))
+                metrics.update(vote_change_through_rounds.compute(subsession))
+                metrics.update(vote_distribution.compute(subsession))
+            except FileNotFoundError as exception:
+                logger.warning("skipping %s: %s", subsession.name, exception)
                 continue
-            evaluate_session_path(session_path, results, verbose)
 
-    if not results.subsessions:
-        logger.error("no results collected — check input paths")
-        return 1
+            all_subsession_metrics.append({
+                "session": session_path.name,
+                "subsession": subsession.name,
+                "metrics": metrics,
+            })
 
-    if args.output:
-        output_path = args.output
-    else:
-        timestamp = datetime.now().strftime("%Y.%m.%d_%H.%M.%S")
-        output_path = Path(f"votes_results_{timestamp}.{args.format}")
+            sub_output = subsession / "eval" / "votes_metrics.json"
+            sub_output.parent.mkdir(parents=True, exist_ok=True)
+            
+            with open(sub_output, "w", encoding="utf-8") as f:
+                json.dump(metrics, f, indent=2, ensure_ascii=False)
 
-    if args.format == "csv":
-        save_csv(results, output_path)
-    elif is_session_run:
-        # json + extremes only when we have multiple subsessions to compare
-        _save_with_extremes(results, output_path)
-    else:
-        save_json(results, output_path)
+        if not all_subsession_metrics:
+            logger.error("no results collected — check that state_*.json exists")
+            return 1
 
-    if verbose:
-        print_summary(results)
+        only_metrics = [entry["metrics"] for entry in all_subsession_metrics]
 
-    return 0
+        session_aggregate = {}
+        session_aggregate.update(vote_entropy.aggregate(only_metrics))
+        session_aggregate.update(stance_vote_alignment.aggregate(only_metrics))
+        session_aggregate.update(vote_change_through_rounds.aggregate(only_metrics))
+        session_aggregate.update(vote_distribution.aggregate(only_metrics))
+
+        output = {
+            "session": session_path.name,
+            "num_subsessions": len(all_subsession_metrics),
+            "aggregate": session_aggregate,
+            "session_extremes": _session_extremes(all_subsession_metrics),
+            "subsessions": all_subsession_metrics,
+        }
+
+        output_path = args.output or session_path / "eval" / "votes_metrics.json"
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(output_path, "w", encoding="utf-8") as f:
+            json.dump(output, f, indent=2, ensure_ascii=False)
+        logger.info("saved results to: %s", output_path)
+
+        return 0
 
 
 if __name__ == "__main__":

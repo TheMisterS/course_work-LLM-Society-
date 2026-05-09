@@ -14,6 +14,23 @@ STANCE_EXPECTED_VOTES = {
 }
 
 
+def aggregate(subsession_metrics):
+    if not subsession_metrics:
+        raise ValueError("no subsession metrics to aggregate")
+
+    result = {"num_subsessions": len(subsession_metrics)}
+    for stage in STAGES:
+        for key in [
+            f"vote_alignment_{stage}_percentage",
+            f"vote_alignment_{stage}_count",
+            f"total_scoreable_{stage}_count",
+        ]:
+            values = [m[key] for m in subsession_metrics if isinstance(m.get(key), (int, float))]
+            result[key] = round(sum(values) / len(values), 4) if values else None
+
+    return result
+
+
 def compute(subsession_path: Path) -> dict:
     state = load_state(subsession_path)
     votes: dict = state.get("votes", {})
@@ -22,11 +39,8 @@ def compute(subsession_path: Path) -> dict:
         personas = load_personas(subsession_path)
     except FileNotFoundError:
         # no rag personas → can't compute alignment
-        empty_alignment = {}
-        for stage in STAGES:
-            key = f"alignment_{stage}_pct"
-            empty_alignment[key] = None
-        return empty_alignment
+        raise FileNotFoundError("personas not found, cannot compute vote alignment")
+
 
     # build stance map with persona name → stance (support/oppose/neutral)
     stance_map = {}
@@ -39,9 +53,9 @@ def compute(subsession_path: Path) -> dict:
     for stage in STAGES:
         stage_votes = votes.get(stage)
         if stage_votes is None:
-            result[f"alignment_{stage}_pct"] = None
-            result[f"aligned_count_{stage}"] = None
-            result[f"total_scoreable_{stage}"] = None
+            result[f"vote_alignment_{stage}_percentage"] = None
+            result[f"vote_alignment_{stage}_count"] = None
+            result[f"total_scoreable_{stage}_count"] = None
             continue
 
         aligned = 0
@@ -53,7 +67,7 @@ def compute(subsession_path: Path) -> dict:
 
             # skip agents with mixed/unknown stance
             if expected is None:
-                continue
+                raise ValueError(f"agent {agent_name} has unknown stance '{stance}', cannot compute alignment for stage {stage}")
 
             total += 1
             if entry.get("vote") in expected:
@@ -64,8 +78,8 @@ def compute(subsession_path: Path) -> dict:
         else:
             pct = round(aligned / total * 100, 1)
 
-        result[f"alignment_{stage}_pct"] = pct
-        result[f"aligned_count_{stage}"] = aligned
-        result[f"total_scoreable_{stage}"] = total
+        result[f"vote_alignment_{stage}_percentage"] = pct
+        result[f"vote_alignment_{stage}_count"] = aligned
+        result[f"total_scoreable_{stage}_count"] = total
 
     return result

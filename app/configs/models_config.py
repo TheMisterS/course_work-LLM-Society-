@@ -39,6 +39,13 @@ MODEL_PROFILES = {
         "temperature": float(os.environ.get("RAG_MODEL_TEMPERATURE", 0.1)),
         "max_tokens":  int(os.environ.get("RAG_MODEL_MAX_TOKENS", 4096)),
     },
+    # --- Baseline pipeline model ---
+    "baseline": {
+        "provider":    os.environ.get("BASELINE_MODEL_PROVIDER", os.environ.get("RAG_MODEL_PROVIDER", "openrouter")),
+        "model":       os.environ.get("BASELINE_MODEL", os.environ.get("RAG_MODEL", "openai/gpt-4o-mini")),
+        "temperature": float(os.environ.get("BASELINE_MODEL_TEMPERATURE", 0.7)),
+        "max_tokens":  int(os.environ.get("BASELINE_MODEL_MAX_TOKENS", os.environ.get("RAG_MODEL_MAX_TOKENS", 4096))),
+    },
 }
 
 _OLLAMA_KEYS = {"model", "temperature", "top_p", "top_k", "num_ctx", "num_predict", "repeat_penalty"}

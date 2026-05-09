@@ -37,9 +37,18 @@ def cosine_sim(a: np.ndarray, b: np.ndarray) -> float:
 def pairwise_cosine(matrix: np.ndarray) -> np.ndarray:
     """Compute pairwise cosine similarity for rows of matrix. Returns (N, N) symmetric matrix."""
     norms = np.linalg.norm(matrix, axis=1, keepdims=True)
-    
+
     # avoid division by zero
     norms = np.where(norms == 0, 1e-10, norms)
-    
+
     normalised = matrix / norms
     return np.dot(normalised, normalised.T)
+
+
+def cosine_sim_matrix(vecs_a: np.ndarray, vecs_b: np.ndarray) -> np.ndarray:
+    """Cosine similarity between every row of vecs_a and every row of vecs_b. Returns (N, M)."""
+    norms_a = np.linalg.norm(vecs_a, axis=1, keepdims=True)
+    norms_b = np.linalg.norm(vecs_b, axis=1, keepdims=True)
+    norms_a = np.where(norms_a == 0, 1e-10, norms_a)
+    norms_b = np.where(norms_b == 0, 1e-10, norms_b)
+    return np.dot(vecs_a / norms_a, (vecs_b / norms_b).T)

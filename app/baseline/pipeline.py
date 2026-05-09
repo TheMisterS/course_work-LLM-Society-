@@ -5,7 +5,8 @@ from typing import List
 
 from baseline.prompts import BASELINE_SYSTEM_PROMPT, build_baseline_user_message
 from configs.rag_config import PERSONA_STANCE_SCHEMA, RAG_MIN_VIEWPOINTS, SYNTHESIS_MAX_RETRIES
-from rag._llm import build_llm, call_llm, parse_json_list
+from configs.models_config import MODEL_PROFILES, configure_model
+from rag._llm import call_llm, parse_json_list
 from rag.persona_synthesis import _LITHUANIAN_NAMES
 from rag.state import GeneratedPersona
 
@@ -14,7 +15,7 @@ logger = logging.getLogger(__name__)
 def build_persona_context_no_rag(topic: str, output_dir: str | None = None) -> List[GeneratedPersona]:
     logger.info("[baseline] generating personas from general knowledge for topic: %s", topic)
 
-    llm = build_llm()
+    llm = configure_model(MODEL_PROFILES["baseline"])
     user_message = build_baseline_user_message(topic, PERSONA_STANCE_SCHEMA, RAG_MIN_VIEWPOINTS)
 
     # retry loop in case the llm outputs malformed json

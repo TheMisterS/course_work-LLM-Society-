@@ -31,9 +31,9 @@ def _plan_queries_prompt(
     system_message = (
         "You are a research assistant. Generate precise, neutral web search queries to find "
         "information, stakeholders, and sources related to the given topic.\n"
-        "Write queries as a person would type them into a search engine - factual and concise, "
         "without analytical framing (do NOT embed words like 'proponents', 'opponents', "
         "'impact of', or 'concerns about' into the queries).\n"
+        "Use only english, even if the topic is not in english.\n"
         f"{prior_instruction}\n\n"
         "Output format: return ONLY a JSON array of strings. No explanation, no markdown fences.\n"
         'Example: ["query 1", "query 2", "query 3"]'

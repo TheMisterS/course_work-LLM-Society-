@@ -12,7 +12,7 @@ class SubsessionResult:
 
 @dataclass
 class AggregatedResults:
-    plane: str
+    plane: str # "rag" | "debate" | "votes"
     subsessions: list = field(default_factory=list)
 
     def add(self, result: SubsessionResult) -> None:

@@ -4,6 +4,7 @@ Persona synthesizer - Step 5c of persona creation pipeline.
 For each enriched viewpoint, makes one LLM call to produce `role_desc` and `background`, then map onto GeneratedPersona.
 """
 import logging
+import json
 from typing import List
 
 from configs.rag_config import SYNTHESIS_MAX_RETRIES
@@ -19,26 +20,28 @@ _LITHUANIAN_NAMES = [
 ]
 
 _SYSTEM_MESSAGE = """You are building a debate simulation persona.
-Given a stakeholder's name (could be an individual or organisation), stance, arguments, and optional background \
-context, produce a realistic human representative persona.
+Given a stakeholder's name, stance, arguments, and optional background context, \
+produce a realistic human representative persona.
 
 The persona's first name has already been assigned - do NOT include a name field.
 
+The key arguments listed below will be used verbatim as this persona's debate talking points. \
+The role_desc should reflect the same overall position without repeating them word for word.
+
 Output ONLY a JSON object with exactly these keys:
-- "role_desc": 1-2 sentences written in first person. The format must follow this \
-pattern exactly: "I am a representative of [org name], [one factual clause about \
-the organisation's mandate or core interest in this domain]. [One sentence stating \
-the persona's directional stance on the topic and the primary reason for it.]" \
-Do NOT invent a job title or describe a fictional career. The person is always \
-"a representative of [org]". Keep the organisational description grounded in the \
-enrichment context if provided, otherwise use the organisation name and type. \
-Example: "I am a representative of LRT, Lithuania's statutory public broadcaster \
-with a mandate to provide trusted public information. I believe platforms must be \
-held to the same editorial accountability standards as traditional media, because \
-inconsistent rules create an uneven playing field."
-- "background": 1-2 sentences of institutional context drawn from the enrichment \
-text below. If the enrichment text is empty, write a brief factual description \
-of the organisation based on its name and type alone.
+- "role_desc": 1-2 sentences written in first person. Follow this pattern exactly: \
+"I am a representative of [org name], [one factual clause about the organisation's mandate \
+or core interest in this domain]. [One sentence stating the persona's directional stance \
+on the topic and the primary reason for it.]" \
+Do NOT invent a job title. The person is always "a representative of [org]". \
+Example: "I am a representative of the National Energy Regulatory Council, the statutory body \
+responsible for overseeing Lithuania's electricity and gas markets. \
+I support this reform because transparent pricing mechanisms are essential \
+for protecting both consumers and long-term investment."
+- "background": 1-2 sentences of institutional context drawn from the enrichment text — \
+focus on facts about the organisation itself (founding, mandate, size, scope) \
+that do NOT repeat the stance or arguments already in role_desc. \
+If the enrichment text is empty, write a brief factual description based on the name and type alone.
 
 No markdown fences. No explanation. Output only the JSON object."""
 

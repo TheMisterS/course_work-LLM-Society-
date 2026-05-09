@@ -45,14 +45,13 @@ RAG_MIN_VIEWPOINTS = int(os.environ.get("RAG_MIN_VIEWPOINTS", 5))  # Early-exit 
 RAG_DEDUP_USE_LLM  = os.environ.get("RAG_DEDUP_USE_LLM", "false").lower() == "true"  # LLM Dedup
 
 # Persona selection & synthesis
-PERSONA_TARGET_COUNT = int(os.environ.get("PERSONA_TARGET_COUNT", 5))
+PERSONA_TARGET_COUNT = int(os.environ.get("PERSONA_TARGET_COUNT", 4))
 
 # how many stakeholders with each stance to include in the final agent composition
 # possible stances are "support", "oppose", "neutral", "mixed"
 PERSONA_STANCE_SCHEMA = {
-    "support": 1,
-    "oppose":  2,
-    "neutral": 1,
+    "support": 2,
+    "oppose":  1
 }
 SYNTHESIS_MAX_RETRIES = int(os.environ.get("SYNTHESIS_MAX_RETRIES", 3))
 
@@ -61,6 +60,7 @@ raw_background_domains = os.environ.get("BACKGROUND_FETCHER_INCLUDE_DOMAINS", ""
 BACKGROUND_FETCHER_DEFAULT_DOMAINS = [
     "wikipedia.org",
     "en.wikipedia.org",
+    "lt.wikipedia.org",
 ]
 
 if raw_background_domains.strip():

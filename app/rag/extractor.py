@@ -19,15 +19,18 @@ def _extract_viewpoints_prompt(topic: str, formatted_results: str) -> dict:
         "You are an analyst helping to build background knowledge for a debate simulation.\n"
         "Extract all distinct viewpoints expressed in the provided search results that are "
         "relevant to the debate topic.\n\n"
-        "A viewpoint is held by any organisation, institution, expert, or named group that:\n"
+        "A viewpoint     is held by any organisation, institution, expert, or named group that:\n"
         "- Has expressed a position (for / against / neutral) on the topic, OR\n"
         "- Has material interests affected by the topic, OR\n"
         "- Has regulatory or policy authority over the topic.\n\n"
         "For each viewpoint output a JSON array of objects with EXACTLY these keys:\n"
-        '- "source_name": name of the actor or organisation\n'
+        '- "source_name": the most specific known name of the actor or organisation '
+        '(e.g. "Lithuanian Ministry of Finance" not "the government", '
+        '"Vilnius City Municipality" not "local authorities")\n'
         '- "source_type": one of [government, ngo, business, academic, media, other]\n'
-        '- "stance": one of [support, oppose, neutral, mixed, unknown]\n'
-        '- "key_arguments": list of 2-4 strings capturing their main arguments or interests\n'
+        '- "stance": one of [support, oppose, neutral]\n'
+        '- "key_arguments": list of 2-4 concise declarative sentences, each capturing '
+        'one distinct argument, concern, or interest this actor holds regarding the topic\n'
         '- "sources": list of URLs where this viewpoint was found\n\n'
         "Output ONLY valid JSON. No markdown fences. No explanation.\n"
         "If no viewpoints are found, output: []"

@@ -7,19 +7,16 @@ logger = logging.getLogger(__name__)
 
 from utils.time_and_dates import date_stamp, date_time_stamp
 
-def create_subsession_folder(base_result_directory: str = "results") -> str:
+def create_results_folder(mode: str, base_result_directory: str = "results") -> str:
     """
     Create the session_*/subsession_* folder structure and return the subsession path.
-
-    Args:
+        mode: Simulation mode ('rag' or 'baseline'), appended to the session folder name.
         base_result_directory: Root results directory (default: "results").
-
-    Returns:
-        subsession_folder_path: Path to the newly created subsession folder.
     """
     os.makedirs(base_result_directory, exist_ok=True)
 
-    session_folder_path = os.path.join(base_result_directory, f"session_{date_stamp()}")
+    folder_mode = "no_rag" if mode == "baseline" else mode
+    session_folder_path = os.path.join(base_result_directory, f"session_{date_stamp()}_{folder_mode}")
     os.makedirs(session_folder_path, exist_ok=True)
 
     subsession_folder_path = os.path.join(session_folder_path, f"subsession_{date_time_stamp()}")
@@ -28,24 +25,20 @@ def create_subsession_folder(base_result_directory: str = "results") -> str:
     return subsession_folder_path
 
 
-def format_results(results, base_result_directory="results", subsession_path=None):
+def format_results(results: dict, base_result_directory: str = "results", subsession_path: str = None):
     """
     Store conversation logs, supervisor notes, votes, and long-term memory summaries.
-
-    Args:
         results: The final graph state dict.
         base_result_directory: Root results directory, used only when subsession_path is None.
         subsession_path: Pre-created subsession folder path. If provided, folder creation is
             skipped and files are written directly into this path.
 
-    Returns:
-        subsession_folder_path: The path to the subsession folder used.
     """
 
     if subsession_path is not None:
         subsession_folder_path = subsession_path
     else:
-        subsession_folder_path = create_subsession_folder(base_result_directory)
+        subsession_folder_path = create_results_folder(base_result_directory)
 
     current_time_stamp = date_time_stamp()
 
@@ -100,16 +93,12 @@ def format_results(results, base_result_directory="results", subsession_path=Non
     return subsession_folder_path
 
 
-def export_state_to_json(results, subsession_folder_path):
+def export_state_to_json(results: dict, subsession_folder_path: str):
     """
     Export the final state to a JSON file.
-    
-    Args:
         results: The final state dict
         subsession_folder_path: Path to the subsession folder
-    
-    Returns:
-        json_file_path: Path to the created JSON file
+
     """
     current_time_stamp = date_time_stamp()
     json_file = os.path.join(subsession_folder_path, f"state_{current_time_stamp}.json")

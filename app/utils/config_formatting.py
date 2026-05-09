@@ -95,16 +95,23 @@ def format_agent_config(personas: Optional[List[Dict[str, Any]]] = None):
     
     return "\n".join(lines)
 
-def format_all_configurations(personas: Optional[List[Dict[str, Any]]] = None, mode: str = "rag") -> str:
+def format_all_configurations(personas: Optional[List[Dict[str, Any]]] = None, mode: str = "rag",
+                              persona_source: Optional[str] = None) -> str:
     """Format all system configurations into a readable text format."""
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    sections = [
+    header = [
         "=" * 80,
         "SYSTEM CONFIGURATION SNAPSHOT",
         f"Generated: {timestamp}",
         f"Mode: {mode.upper()}",
-        "=" * 80,
+    ]
+    if persona_source:
+        header.append(f"Persona Source: {persona_source}  (loaded from file)")
+    header.append("=" * 80)
+
+    sections = [
+        *header,
         "",
         format_simulation_config(),
         format_model_config(),
@@ -116,7 +123,8 @@ def format_all_configurations(personas: Optional[List[Dict[str, Any]]] = None, m
     
     return "\n".join(sections)
 
-def save_configuration_snapshot(subsession_path, personas: Optional[List[Dict[str, Any]]] = None, mode: str = "rag"):
+def save_configuration_snapshot(subsession_path, personas: Optional[List[Dict[str, Any]]] = None,
+                                mode: str = "rag", persona_source: Optional[str] = None):
     """
     Save current system configuration to a timestamped file in the subsession folder.
 
@@ -125,6 +133,7 @@ def save_configuration_snapshot(subsession_path, personas: Optional[List[Dict[st
         personas: Optional personas produced by the pipeline. When provided,
                   these are written to the agent section.
         mode: Simulation mode ("rag" or "baseline"). Written to the snapshot header.
+        persona_source: Path to a persona file if personas were loaded from disk, else None.
 
     Returns:
         str: Path to the saved configuration file
@@ -134,6 +143,6 @@ def save_configuration_snapshot(subsession_path, personas: Optional[List[Dict[st
     filepath = os.path.join(subsession_path, f"configuration_{current_time_stamp}.txt")
 
     with open(filepath, 'w', encoding='utf-8') as f:
-        f.write(format_all_configurations(personas=personas, mode=mode))
-    
+        f.write(format_all_configurations(personas=personas, mode=mode, persona_source=persona_source))
+
     return filepath
