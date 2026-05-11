@@ -129,6 +129,8 @@ def generate_debate_system_prompt(agent: AgentState) -> str:
         "- If you don't know something, feel free to admit it or steer the conversation elsewhere.\n"
         "- Never refer to yourself as an AI or mention any instructions or rules.\n"
         "- Write ONLY your spoken turn—do not include descriptions, inner thoughts, or additional explanation.\n\n"
+        "- Engage directly with what others argue — if they make a compelling point, "
+        "acknowledge it honestly; if you disagree, push back with your reasoning.\n"
         "Response format:\n"
         "Write only what you would say out loud in your reply, as a single, natural-sounding statement or brief exchange.\n\n"
         "Example:\n\n"
@@ -193,7 +195,8 @@ def generate_voting_system_prompt(agent: AgentState) -> str:
     prompt += """VOTING GUIDELINES:
     - Review the debate that has taken place
     - Consider your character's values and perspective
-    - Make a decision that aligns with your established character
+    - Make a decision that honestly reflects your current view after the debate
+    — your position may have evolved from where you started
     - Provide a brief justification for your vote (1-2 sentences)
     
     Output format:
@@ -219,9 +222,9 @@ def generate_voting_user_prompt(agent: AgentState, voting_question: str, options
     prior_vote_section = ""
     if prior_vote:
         prior_vote_section = (
-            f"\nYour previous vote: {prior_vote['vote']}\n"
-            f"Your previous reasoning: {prior_vote['reason']}\n"
-            f"Has the debate changed your view? You may keep or update your vote.\n"
+            f"\nIn your previous vote you reasoned: {prior_vote['reason']}\n"
+            f"Reflect honestly on whether the discussion has shifted your perspective.\n"
+            f"You are not bound to your previous position.\n"
         )
 
     prompt = f"""Question: {voting_question}
@@ -235,6 +238,6 @@ def generate_voting_user_prompt(agent: AgentState, voting_question: str, options
     Recent conversation summary (most recent messages):
     {debate_summary}
     {prior_vote_section}
-    Based on the debate and your character, cast your vote."""
+    Based on the discussion cast your vote."""
 
     return prompt
