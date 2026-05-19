@@ -12,7 +12,7 @@ from rag.state import SearchResult, Viewpoint
 
 logger = logging.getLogger(__name__)
 
-_BATCH_SIZE = 3  # search results per LLM call
+_BATCH_SIZE = 3  #[WIP] search results to process per LLM call -> should be moved to config
 
 def _extract_viewpoints_prompt(topic: str, formatted_results: str) -> dict:
     system_message = (
@@ -70,17 +70,22 @@ def extract_viewpoints(
         
         batch = results[i : i + _BATCH_SIZE]
         
-        formatted = "\n\n".join(
-            f"[Source: {r['url']}]\n{r['content']}" for r in batch
-        )
+        formatted = ""
+        for result in batch:
+            formatted += f"[Source: {result['url']}]\n{result['content']}\n\n"
+        
+        # remove newlines from the final string
+        formatted = formatted.strip()
 
         prompts = _extract_viewpoints_prompt(topic, formatted)
 
         try:
             raw = call_llm(llm, prompts["system_message"], prompts["user_message"])
             logger.debug("[extractor] batch %d raw: %s", i // _BATCH_SIZE, raw[:300])
+            
             parsed = parse_json_list(raw)
             viewpoints.extend(parsed)
+            
             logger.info(
                 "[extractor] batch %d → %d viewpoints", i // _BATCH_SIZE, len(parsed)
             )

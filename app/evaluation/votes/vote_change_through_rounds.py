@@ -13,6 +13,9 @@ VOTE_NUMERIC = {
     "Strongly Against": -2,
 }
 
+TRANSITIONS = ["start_to_mid", "mid_to_end", "start_to_end"]
+
+
 STAGES = ["initial", "mid", "final"]
 logger = logging.getLogger(__name__)
 
@@ -48,10 +51,6 @@ def compute_vote_change(scores: dict, label: str, from_stage: str, to_stage: str
         f"{label}_average_abs_change": round(average_abs, 4),
     }
 
-
-TRANSITIONS = ["start_to_mid", "mid_to_end", "start_to_end"]
-
-
 def aggregate(subsession_metrics: list[dict]) -> dict:
     if not subsession_metrics:
         raise ValueError("no subsession metrics to aggregate")
@@ -64,7 +63,6 @@ def aggregate(subsession_metrics: list[dict]) -> dict:
             result[key] = round(sum(values) / len(values), 4) if values else None
 
     return result
-
 
 def compute(subsession_path: Path) -> dict:
     state = load_state(subsession_path)

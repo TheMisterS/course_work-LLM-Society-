@@ -24,9 +24,11 @@ logger = logging.getLogger(__name__)
 _PUNCT_RE = re.compile(r"[^\w\s]")
 
 def _normalize_name(name: str) -> str:
-    """Lowercase, strip punctuation, and collapse whitespace for key comparison."""
+    """Lowercase, strip punctuation, and remove whitespace"""
+    
     name = name.lower()
     name = _PUNCT_RE.sub("", name)
+    
     return " ".join(name.split())
 
 
@@ -60,7 +62,7 @@ def _merge(existing: Viewpoint, incoming: Viewpoint) -> None:
     if len(incoming.get("source_name", "")) > len(existing.get("source_name", "")):
         existing["source_name"] = incoming["source_name"]
 
-    # Combine arguments, drop exact duplicates, cap at 6
+    # Combine arguments, drop exact duplicates, cap at 6 to be comparable to baseline
     all_args = existing.get("key_arguments", []) + incoming.get("key_arguments", [])
     existing["key_arguments"] = list(dict.fromkeys(all_args))[:6]
 
@@ -68,9 +70,10 @@ def _merge(existing: Viewpoint, incoming: Viewpoint) -> None:
     all_sources = existing.get("sources", []) + incoming.get("sources", [])
     existing["sources"] = list(dict.fromkeys(all_sources))
 
-    # Resolve stance: unknown yields to any value; conflicting values → mixed
+    # Resolve stance: unknown to any value; conflicting values → mixed
     existing_stance = existing.get("stance", "unknown")
     incoming_stance = incoming.get("stance", "unknown")
+    
     if existing_stance == "unknown":
         existing["stance"] = incoming_stance
     elif incoming_stance not in ("unknown", existing_stance):
@@ -82,7 +85,7 @@ def deduplicate(topic: str, viewpoints: List[Viewpoint]) -> List[Viewpoint]:
     Deduplicate a list of Viewpoint objects.
 
     Phase A (always): rule-based merge
-    Phase B (optional): LLM semantic merge when RAG_DEDUP_USE_LLM is True
+    Phase B (optional, but always in research): LLM semantic merge when RAG_DEDUP_USE_LLM is True
 
     Args:
         topic: The debate topic (used as context for the LLM phase).
@@ -116,13 +119,16 @@ def deduplicate(topic: str, viewpoints: List[Viewpoint]) -> List[Viewpoint]:
                 topic=topic,
                 viewpoints_json=json.dumps(merged, ensure_ascii=False, indent=2),
             )
+            
             raw = call_llm(llm, prompts["system_message"], prompts["user_message"])
             parsed = parse_json_list(raw)
+            
             if parsed:
                 merged = parsed
                 logger.info(
                     "[deduplicator] after LLM pass: %d viewpoints", len(merged)
                 )
+                
         except Exception as exc:
             logger.warning("[deduplicator] LLM dedup failed, keeping rule-based result: %s", exc)
 

@@ -3,20 +3,20 @@ import json
 import logging
 import sys
 from pathlib import Path
-
-sys.path.insert(0, str(Path(__file__).parent.parent / "shared"))
-
 from loader import discover_subsessions
-import vote_entropy
 import stance_vote_alignment
 import vote_change_through_rounds
 import vote_distribution
+
+# got into some ModuleNotFoundError issues when running from ./app :) 
+sys.path.insert(0, str(Path(__file__).parent.parent / "shared"))
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
 logger = logging.getLogger(__name__)
 
 
 def _session_extremes(all_subsession_metrics: list[dict]) -> dict:
+    """Find min/max values for each numeric metric across all subsessions & maintain key  on which session/subsession."""
     extremes: dict = {}
 
     for entry in all_subsession_metrics:
@@ -37,11 +37,11 @@ def _session_extremes(all_subsession_metrics: list[dict]) -> dict:
                 extremes[key]["min"] = {"value": val, "session": session, "subsession": subsession}
             if val > extremes[key]["max"]["value"]:
                 extremes[key]["max"] = {"value": val, "session": session, "subsession": subsession}
-
     return extremes
 
 
-def main() -> int:
+def main():
+    
     parser = argparse.ArgumentParser(prog="evaluation/votes")
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument(
@@ -65,15 +65,15 @@ def main() -> int:
     )
     args = parser.parse_args()
 
+    # --subsession: evaluate a single subsession
     if args.subsession:
         subsession_path = args.subsession
         if not subsession_path.exists():
             logger.error("path does not exist: %s", subsession_path)
             return 1
-
+        
         try:
             metrics = {}
-            metrics.update(vote_entropy.compute(subsession_path))
             metrics.update(stance_vote_alignment.compute(subsession_path))
             metrics.update(vote_change_through_rounds.compute(subsession_path))
             metrics.update(vote_distribution.compute(subsession_path))
@@ -83,10 +83,13 @@ def main() -> int:
 
         output_path = args.output or subsession_path / "eval" / "votes_metrics.json"
         output_path.parent.mkdir(parents=True, exist_ok=True)
+        
         with open(output_path, "w", encoding="utf-8") as f:
             json.dump(metrics, f, indent=2, ensure_ascii=False)
+            
         logger.info("saved to: %s", output_path)
         return 0
+    
     # --session: evaluate all subsessions
     else:
         session_path = args.session
@@ -106,7 +109,6 @@ def main() -> int:
             logger.info("evaluating subsession: %s", subsession.name)
             try:
                 metrics = {}
-                metrics.update(vote_entropy.compute(subsession))
                 metrics.update(stance_vote_alignment.compute(subsession))
                 metrics.update(vote_change_through_rounds.compute(subsession))
                 metrics.update(vote_distribution.compute(subsession))
@@ -130,10 +132,10 @@ def main() -> int:
             logger.error("no results collected — check that state_*.json exists")
             return 1
 
+        # strip metadata for easier/cleaner aggregation
         only_metrics = [entry["metrics"] for entry in all_subsession_metrics]
 
         session_aggregate = {}
-        session_aggregate.update(vote_entropy.aggregate(only_metrics))
         session_aggregate.update(stance_vote_alignment.aggregate(only_metrics))
         session_aggregate.update(vote_change_through_rounds.aggregate(only_metrics))
         session_aggregate.update(vote_distribution.aggregate(only_metrics))
@@ -148,12 +150,13 @@ def main() -> int:
 
         output_path = args.output or session_path / "eval" / "votes_metrics.json"
         output_path.parent.mkdir(parents=True, exist_ok=True)
+        
         with open(output_path, "w", encoding="utf-8") as f:
             json.dump(output, f, indent=2, ensure_ascii=False)
+            
         logger.info("saved results to: %s", output_path)
 
         return 0
-
 
 if __name__ == "__main__":
     sys.exit(main())

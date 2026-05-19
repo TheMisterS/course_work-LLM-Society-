@@ -9,3 +9,8 @@ langgraph
 pandas
 python-dotenv
 tavily-python
+# eval dependencies, merged for simplicity
+sentence-transformers>=2.7.0
+numpy>=1.26.0
+scipy>=1.13.0
+

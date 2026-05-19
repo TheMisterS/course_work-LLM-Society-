@@ -1,7 +1,7 @@
 """
 RAG pipeline logger.
 
-Writes one JSON file per pipeline stage into {subsession_path}/rag/
+Writes one JSON file per pipeline stage into {subsession_path}/rag/ for traceability and debugging.
 """
 import json
 import logging
@@ -23,6 +23,7 @@ class RagRunLogger:
         Args:
             subsession_path: Path to the current session's subsession folder.
         """
+        
         self._dir = os.path.join(subsession_path, "rag")
         os.makedirs(self._dir, exist_ok=True)
         self._query_iterations: list = []
@@ -32,9 +33,12 @@ class RagRunLogger:
 
     def _write(self, filename: str, data: dict) -> None:
         """Map data to a JSON file inside the rag/ folder."""
+        
         path = os.path.join(self._dir, filename)
+        
         with open(path, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=2)
+            
         logger.info("[rag_logger] saved %s", path)
 
     # Stage 1 — Query planner

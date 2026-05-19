@@ -1,6 +1,7 @@
 import os
 from dotenv import load_dotenv
 
+# redundant, but left as a safeguard
 load_dotenv()
 
 # Tavily search
@@ -37,18 +38,15 @@ if raw_include_domains.strip():
 else:
     TAVILY_INCLUDE_DOMAINS = LITHUANIAN_DOMAINS
 
-
 # Pipeline behaviour
 RAG_QUERY_COUNT    = int(os.environ.get("RAG_QUERY_COUNT", 4))     # Tavily queries generated per iteration
 RAG_MAX_ITERATIONS = int(os.environ.get("RAG_MAX_ITERATIONS", 2))  # Hard cap on search-extract loops
 RAG_MIN_VIEWPOINTS = int(os.environ.get("RAG_MIN_VIEWPOINTS", 5))  # Early-exit threshold: stop looping once this many viewpoints are found
 RAG_DEDUP_USE_LLM  = os.environ.get("RAG_DEDUP_USE_LLM", "false").lower() == "true"  # LLM Dedup
 
-# Persona selection & synthesis
-PERSONA_TARGET_COUNT = int(os.environ.get("PERSONA_TARGET_COUNT", 4))
-
 # how many stakeholders with each stance to include in the final agent composition
 # possible stances are "support", "oppose", "neutral", "mixed"
+# [WIPWIPWIPWIP] This never made it into .env, thus it should be configured directly in this file
 PERSONA_STANCE_SCHEMA = {
     "support": 2,
     "oppose":  1

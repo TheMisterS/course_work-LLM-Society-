@@ -7,6 +7,7 @@ import os
 import logging
 from typing import List
 from langchain_tavily import TavilySearch
+
 from configs.rag_config import (
     TAVILY_API_KEY,
     TAVILY_INCLUDE_DOMAINS,
@@ -23,6 +24,7 @@ os.environ["TAVILY_API_KEY"] = TAVILY_API_KEY
 
 def build_search_tool() -> TavilySearch:
     """Instantiate and return a configured TavilySearch tool."""
+    
     return TavilySearch(
         max_results=TAVILY_MAX_RESULTS,
         search_depth=TAVILY_SEARCH_DEPTH,

@@ -40,6 +40,7 @@ def compute(session_path: Path, output_path: Path | None = None) -> dict:
     all_aff: list[float] = []
     all_kp: list[float] = []
 
+    # BertScore-like approach: for each run pair, compute cosine similarity matrix and average max sims in both directions
     for i in range(len(runs)):
         for j in range(i + 1, len(runs)):
             key = f"{runs[i]['subsession']} vs {runs[j]['subsession']}"

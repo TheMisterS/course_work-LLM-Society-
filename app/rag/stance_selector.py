@@ -11,6 +11,7 @@ logger = logging.getLogger(__name__)
 
 
 def _score(viewpoint: Viewpoint) -> int:
+    
     """Score a viewpoint for selection priority based of number of arguments and sources"""
     return len(viewpoint.get("key_arguments", [])) * 2 + len(viewpoint.get("sources", []))
 

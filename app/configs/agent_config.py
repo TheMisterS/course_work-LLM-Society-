@@ -1,6 +1,7 @@
 from typing import Dict
 from graph.utils.state import AgentState
 
+# these agents were used in course works base system and are no longer utilized, but left for reference.
 AGENT_PROFILES = {
   "Tim": {
     "role_desc": "Person with strong moral principles who believes taking an innocent life is never justified.",
@@ -26,4 +27,14 @@ AGENT_PROFILES = {
       "Outcomes and survival should take priority over rule-following"
     ]
   }
+}
+
+DEFAULT_PERSONA = {
+    "name": "Rūta",
+    "affiliation": "Lithuanian citizen",
+    "role_desc": "I am a Lithuanian citizen.",
+    "keypoints": [],
+    "background": "An ordinary Lithuanian citizen.",
+    "stance": "neutral",
+    "sources": [],
 }

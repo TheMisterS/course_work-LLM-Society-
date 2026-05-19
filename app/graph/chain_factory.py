@@ -8,9 +8,11 @@ logger = logging.getLogger(__name__)
 
 def create_agent_chain(model):
     logger.debug("Creating agent chain with provided prompts.")
+    
     prompt = ChatPromptTemplate.from_messages([
         ("system", "{system_message}"),
         ("user", "{user_message}")
     ])
+    
     chain = prompt | model | StrOutputParser()
     return chain

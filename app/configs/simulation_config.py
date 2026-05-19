@@ -3,6 +3,7 @@
 import os
 from dotenv import load_dotenv
 
+# redundant, but left as a safeguard
 load_dotenv()
 
 # General agenda items
@@ -25,5 +26,5 @@ MEMORY_WINDOW_SIZE = int(os.environ.get("MEMORY_WINDOW_SIZE", 5))  # Number of r
 # Long-term memory configuration
 LONG_MEMORY_ENABLED = os.environ.get("LONG_MEMORY_ENABLED", "true").lower() == "true"  # Enable/disable long-term memory feature
 LONG_MEMORY_UPDATE_INTERVAL = int(os.environ.get("LONG_MEMORY_UPDATE_INTERVAL", 5))  # Update long memory every N rounds
-LONG_MEMORY_THRESHOLD_PERCENT = float(os.environ.get("LONG_MEMORY_THRESHOLD_PERCENT", 0.8))  # Trigger when short_mem is at least 80% full
+LONG_MEMORY_THRESHOLD_PERCENT = float(os.environ.get("LONG_MEMORY_THRESHOLD_PERCENT", 0.8))  # Trigger when short_mem is at least N/100% full, seemed a good idea in course work but should probably be rethough
 MODEL_USED_FOR_SUMMARIZATION = os.environ.get("MODEL_USED_FOR_SUMMARIZATION", "model_1")  # Model used for memory summarization

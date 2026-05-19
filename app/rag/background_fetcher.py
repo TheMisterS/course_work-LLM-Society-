@@ -35,9 +35,6 @@ def fetch_backgrounds(viewpoints: List[Viewpoint], topic: str = "") -> List[View
     """
     Fetch institutional background for every viewpoint(persona) via keyword searches.
 
-    Queries are anchored with Lithuania and the stakeholder type to avoid wrong
-    definitions for generic or ambiguous names
-
     Args:
         viewpoints: Selected viewpoints from stance_selector.
         topic: The debate topic — used in the fallback query for extra context.
@@ -54,6 +51,7 @@ def fetch_backgrounds(viewpoints: List[Viewpoint], topic: str = "") -> List[View
 
         # Primary: Wikipedia-first
         topic_hint = f" {topic}" if topic else ""
+        # Hint: Add Lithuania to avoid generic context & aim for Wikipedia type data
         primary_query = f"{source_name} {type_hint}Lithuania{topic_hint} Wikipedia"
         primary_results = execute_query(_fetch_tool, primary_query)
         primary_content = "".join(r.get("content", "") for r in primary_results)
@@ -68,10 +66,12 @@ def fetch_backgrounds(viewpoints: List[Viewpoint], topic: str = "") -> List[View
 
         # Fallback: drop Wikipedia, just go with Lithuania
         logger.info("[background_fetcher] fallback triggered for %s", source_name)
+        # Hint: Add Lithuania to avoid generic context
         fallback_query = f"{source_name} {type_hint}Lithuania{topic_hint}"
         fallback_results = execute_query(_fetch_tool, fallback_query)
         fallback_content = "".join(r.get("content", "") for r in fallback_results)
 
+        #[WIP] should be dynamic based on max_tokens or max context length.
         if len(fallback_content) >= _MIN_CONTENT_LENGTH:
             vp["_enrichment_raw"] = fallback_content[:_MAX_CONTENT_LENGTH]
         else:

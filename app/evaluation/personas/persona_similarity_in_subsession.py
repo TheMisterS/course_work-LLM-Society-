@@ -28,6 +28,7 @@ def compute(subsession_path: Path) -> dict:
     kp_scores: list[float] = []
     pairs: dict[str, dict] = {}
 
+    # BertScore-like approach: compute pairwise cosine similarity of affiliations and keypoints, then average max sims for each persona pair
     for i in range(len(personas)):
         for j in range(i + 1, len(personas)):
             key = f"{affiliations[i]} vs {affiliations[j]}"

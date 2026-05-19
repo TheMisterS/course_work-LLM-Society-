@@ -1,7 +1,6 @@
 import json
 from pathlib import Path
 
-
 def load_personas(subsession_path: Path) -> list[dict]:
     """Load personas list from rag/07_personas.json."""
     
@@ -12,6 +11,7 @@ def load_personas(subsession_path: Path) -> list[dict]:
             f"rag/07_personas.json not found in {subsession_path}. "
             "Ensure the RAG pipeline ran for this subsession."
         )
+        
     with open(personas_file, "r", encoding="utf-8") as f:
         data = json.load(f)
         

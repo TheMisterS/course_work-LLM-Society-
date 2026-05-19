@@ -29,7 +29,6 @@ def strip_json_fences(text: str) -> str:
     """Strip markdown code fences (```json ... ``` or ``` ... ```) from an LLM response."""
     cleaned = text.strip()
 
-    # Fast path for unfenced output.
     if not cleaned.startswith("```"):
         return cleaned
 

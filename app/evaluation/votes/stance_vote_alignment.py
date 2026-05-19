@@ -19,6 +19,7 @@ def aggregate(subsession_metrics):
         raise ValueError("no subsession metrics to aggregate")
 
     result = {"num_subsessions": len(subsession_metrics)}
+    
     for stage in STAGES:
         for key in [
             f"vote_alignment_{stage}_percentage",
@@ -70,6 +71,8 @@ def compute(subsession_path: Path) -> dict:
                 raise ValueError(f"agent {agent_name} has unknown stance '{stance}', cannot compute alignment for stage {stage}")
 
             total += 1
+            
+            # core matching operation
             if entry.get("vote") in expected:
                 aligned += 1
 

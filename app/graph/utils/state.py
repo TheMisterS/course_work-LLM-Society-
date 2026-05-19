@@ -36,14 +36,3 @@ class GraphState(TypedDict):
     current_vote_label: Optional[str]
     # tracks the round when long-mem node ran last to prevent double updating during voting
     last_long_mem_update_round: int
-
-class IndividualPersona(TypedDict):
-    demographics: Dict[str, str]  # e.g. age, gender, education, occupation ...
-
-class IndividualState(TypedDict):
-    persona: IndividualPersona
-    questions: List[str]
-    current_question_index: int
-    messages: Annotated[List[Msg], add]
-    phase: Literal["individual","done"]
-    models: Dict[str, ChatOllama]

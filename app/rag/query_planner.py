@@ -69,6 +69,7 @@ def plan_queries(
 
     llm = build_llm()
     prompts = _plan_queries_prompt(topic, query_count, prior_queries, iteration)
+    
     raw = call_llm(llm, prompts["system_message"], prompts["user_message"])
     logger.debug("[query_planner] raw LLM output: %s", raw)
 

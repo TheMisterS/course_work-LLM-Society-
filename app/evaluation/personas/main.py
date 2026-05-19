@@ -15,9 +15,11 @@ logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
 logger = logging.getLogger(__name__)
 
 
-def main() -> int:
+def main():
+    
     parser = argparse.ArgumentParser(prog="evaluation/rag")
     group = parser.add_mutually_exclusive_group(required=True)
+    
     group.add_argument(
         "--session",
         type=Path,
@@ -44,17 +46,17 @@ def main() -> int:
         if not subsession_path.exists():
             logger.error("path does not exist: %s", subsession_path)
             return 1
-
         try:
             metrics = in_subsession.compute(subsession_path)
         except FileNotFoundError as e:
             logger.error("could not load personas: %s", e)
             return 1
 
-        # set output path
         output_path = args.output
+        
         if output_path is None:
             output_path = subsession_path / "eval" / "rag_metrics.json"
+            
         output_path.parent.mkdir(parents=True, exist_ok=True)
         
         with open(output_path, "w", encoding="utf-8") as f:
@@ -108,16 +110,18 @@ def main() -> int:
             "in_subsession_aggregate": in_subsession_aggregate,
         }
 
+        # metric does a comparison, thus requires at least 2 subsessions to compute
         if len(subsession_paths) >= 2:
             logger.info("computing similarity across all sessions")
             output["across_sessions"] = across_sessions.compute(session_path)
         else:
             logger.info("skipping all session similarity (need >= 2 subsessions, found %d)", len(subsession_paths))
 
-        # set output path
         output_path = args.output
+        
         if output_path is None:
             output_path = session_path / "eval" / "persona_metrics.json"
+            
         output_path.parent.mkdir(parents=True, exist_ok=True)
         
         with open(output_path, "w", encoding="utf-8") as f:

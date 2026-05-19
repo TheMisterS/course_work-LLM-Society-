@@ -227,6 +227,11 @@ def generate_voting_user_prompt(agent: AgentState, voting_question: str, options
             f"You are not bound to your previous position.\n"
         )
 
+    if debate_summary.strip():
+        context_section = f"Recent conversation summary:\n{debate_summary}"
+    else:
+        context_section = "No debate has taken place yet. Cast your vote based solely on your persona's prior beliefs and values."
+    
     prompt = f"""Question: {voting_question}
 
     Available options:
@@ -235,8 +240,8 @@ def generate_voting_user_prompt(agent: AgentState, voting_question: str, options
     Long term memory:
     {long_memory_section}
 
-    Recent conversation summary (most recent messages):
-    {debate_summary}
+    {context_section}
+    
     {prior_vote_section}
     Based on the discussion cast your vote."""
 

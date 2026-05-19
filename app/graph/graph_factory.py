@@ -61,14 +61,14 @@ def route_after_update_memory(state: GraphState) -> str:
     
     return "supervisor"
 
-# main functions
 def initialize_state(personas=None):
     """
     Initialize the graph state with agents, models, and default values.
 
     Args:
-        personas: Optional List[GeneratedPersona] from the RAG pipeline. Each
-                  stakeholder becomes one agent. Falls back to static AGENT_PROFILES when None or empty.
+        personas: Optional List[GeneratedPersona] from the RAG pipeline.
+        Each stakeholder becomes one agent.
+        Falls back to static AGENT_PROFILES when None or empty.
     """
     state = GraphState()
     state["agents"] = {}
@@ -172,7 +172,6 @@ def build_graph():
                                     }
                                    )
 
-    ...
     graph = workflow.compile()
 
     return graph
