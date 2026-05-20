@@ -54,7 +54,7 @@ A LangGraph-based multi-agent discussion system. Personas are generated either v
 
 ## Prerequisites
 
-- Python 3.12+
+- Python 3.12+ (with venv available)
 - An [OpenRouter](https://openrouter.ai) API key (or a local [Ollama](https://ollama.com) instance, has not been tested in a while)
 - A [Tavily](https://tavily.com) API key (required for the RAG pipeline)
 
@@ -62,7 +62,7 @@ A LangGraph-based multi-agent discussion system. Personas are generated either v
 
 ## Setup
 
-1. **Clone the repository and enter the project directory.**
+1. **Clone the repository and enter the ./app directory.**
 
 2. **Create and activate a virtual environment.**
    ```bash
@@ -72,14 +72,14 @@ A LangGraph-based multi-agent discussion system. Personas are generated either v
 
 3. **Install dependencies.**
    ```bash
-   pip install -r requirements.txt
+   pip install -r requirements.txt # expect quite large dependencies due to cuda, 2gb<
    ```
 
 4. **Configure environment variables.**
    ```bash
    cp .env.example .env
    ```
-   Then open `.env` and fill in the required values (see [Secrets](#secrets) below). \
+   Then open `.env` and fill in the secret values. \
    Don't forget you can also edit schemas in rag_config [WIP :)]
 
 5. **Run a simulation.**

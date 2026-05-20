@@ -3,13 +3,14 @@ import json
 import logging
 import sys
 from pathlib import Path
+
+# got into some ModuleNotFoundError issues when running from ./app :) 
+sys.path.insert(0, str(Path(__file__).parent.parent / "shared"))
+
 from loader import discover_subsessions
 import stance_vote_alignment
 import vote_change_through_rounds
 import vote_distribution
-
-# got into some ModuleNotFoundError issues when running from ./app :) 
-sys.path.insert(0, str(Path(__file__).parent.parent / "shared"))
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s %(message)s")
 logger = logging.getLogger(__name__)
